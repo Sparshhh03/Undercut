@@ -16,3 +16,6 @@ site/media/frames/
 
 # Full-quality master clips (web versions live in site/media/hero)
 media_masters/
+
+# Local notes for Claude sessions (playbooks, prompts)
+notes/
