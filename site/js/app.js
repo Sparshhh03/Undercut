@@ -454,6 +454,10 @@ const HERO_CLIPS = [
   { base: 'media/hero/03-ferrari', team: 'ferrari' },
   { base: 'media/hero/04-mclaren', team: 'mclaren' },
 ];
+// while the intro is on screen, the nav drops its live blur (see styles.css)
+const syncHeroState = () => document.body.classList.toggle('at-hero', scrollY < $('.intro').offsetHeight - 60);
+syncHeroState();
+addEventListener('scroll', syncHeroState, { passive: true });
 createHeroVideo($('.hero-stage'), HERO_CLIPS, {
   reducedMotion: RM,
   onChange(clip, i) {

@@ -176,6 +176,14 @@ button, select { font: inherit; color: inherit; }
 .now-showing { justify-self: end; padding: 10px 16px; border-radius: 18px; display: grid; gap: 3px; min-width: 230px; }
 .ns-team { display: flex; align-items: center; gap: 10px; font-family: var(--f-display); font-size: .98rem; white-space: nowrap; }
 .ns-count { margin-left: auto; padding-left: 12px; font-size: .75rem; color: var(--ink-3); white-space: nowrap; }
+/* Live background blur over a playing video makes the browser re-blur every frame, which causes
+   stutter. Over the hero, glass elements use a solid tint instead (it looks the same on dark video). */
+.intro .window, .intro .pill-btn { backdrop-filter: none; -webkit-backdrop-filter: none; }
+.intro .pill-btn:not(.primary) { background: rgba(20, 22, 28, .62); }
+.intro .now-showing { background: rgba(14, 15, 19, .66); }
+body.at-hero .nav { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(12, 13, 17, .8); }
+.hero-stage video.on, .hero-stage video { will-change: opacity; }
+
 @media (max-width: 860px) {
   .hero-bottom { grid-template-columns: 1fr; justify-items: center; text-align: center; gap: 14px; }
   .hero-bottom .lede { display: none; }
