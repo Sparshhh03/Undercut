@@ -1,5 +1,5 @@
 /* Undercut: spatial UI.
-   Layout: a full-bleed intro on a cursor-reactive cell grid, then floating glass "windows" over a dark environment,
+   Layout: a full-screen intro cycling team-car videos, then floating glass "windows" over a dark environment,
    each section a window with its own ornaments (floating toolbars) below or beside it.
    Single dark look by design: the environment is the stage the windows float in. */
 :root {
@@ -139,35 +139,48 @@ button, select { font: inherit; color: inherit; }
 .nav a.link:hover, .nav a.link.on { color: var(--ink); background: rgba(255, 255, 255, .1); }
 @media (max-width: 760px) { .nav a.link { display: none; } .nav a.link.keep { display: inline-flex; } }
 
-/* ---------- intro ---------- */
-.intro { --cell: 14px; position: relative; height: clamp(600px, 92svh, 880px); overflow: hidden; display: grid; align-content: center; }
-/* fine grid: lines in CSS, lit cells painted on the canvas at the same 14px pitch */
-.grid-bg {
-  position: absolute; inset: 0;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, .045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, .045) 1px, transparent 1px);
-  background-size: var(--cell) var(--cell);
-  -webkit-mask-image: radial-gradient(ellipse 75% 70% at 50% 42%, #000 35%, transparent 100%);
-  mask-image: radial-gradient(ellipse 75% 70% at 50% 42%, #000 35%, transparent 100%);
+/* ---------- intro: full-screen video of the team cars ---------- */
+.intro { position: relative; height: clamp(620px, 100svh, 1000px); overflow: hidden; background: #000; }
+.hero-stage { position: absolute; inset: 0; background: #000 center 60% / cover no-repeat; }
+.hero-stage video {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: 50% 60%;
+  opacity: 0; transition: opacity .9s ease;
 }
-.grid-bg canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-.intro::after { content: ""; position: absolute; inset: auto 0 0; height: 30%; background: linear-gradient(transparent, var(--env)); pointer-events: none; }
+.hero-stage video.on { opacity: 1; }
+/* keeps the title readable, darkens the corners, and blends the bottom into the page */
+.hero-shade {
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 115% 95% at 50% 55%, transparent 52%, rgba(0, 0, 0, .7) 100%),
+    linear-gradient(to bottom, rgba(5, 6, 8, .82) 0%, rgba(5, 6, 8, .35) 26%, rgba(5, 6, 8, 0) 45%, rgba(5, 6, 8, 0) 62%, rgba(5, 6, 8, .55) 84%, var(--env) 100%);
+}
 .intro-copy {
   position: relative; z-index: 2; text-align: center;
-  padding: calc(env(safe-area-inset-top, 0px) + 40px) var(--gutter) 60px;
-  display: grid; justify-items: center; gap: 18px;
+  padding: calc(env(safe-area-inset-top, 0px) + 104px) var(--gutter) 0;
+  display: grid; justify-items: center; gap: 14px;
 }
-.intro h1 { font-size: clamp(2.3rem, 6.4vw, 5rem); font-weight: 600; max-width: 15ch; }
+.intro h1 { font-size: clamp(2.2rem, 5.6vw, 4.6rem); font-weight: 600; max-width: 16ch; text-shadow: 0 4px 30px rgba(0, 0, 0, .5); }
 .intro h1 .typed { color: var(--ink); }
 .intro h1 .ghost { color: var(--ink-3); }
 .caret { display: inline-block; width: .06em; height: .9em; margin-left: .04em; vertical-align: -.08em; background: var(--accent); animation: pulse 1s steps(1) infinite; }
-.intro .lede { max-width: 54ch; color: var(--ink-2); font-size: clamp(1rem, 1.5vw, 1.12rem); }
-.intro .ctas { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 6px; }
-.intro .hint { position: absolute; z-index: 2; left: 50%; bottom: 26px; transform: translateX(-50%); display: flex; gap: 8px; align-items: center; font-size: .8rem; color: var(--ink-3); font-weight: 700; }
-.intro .hint i { width: 22px; height: 34px; border: 2px solid var(--ink-3); border-radius: 12px; position: relative; }
-.intro .hint i::after { content: ""; position: absolute; left: 50%; top: 6px; width: 4px; height: 7px; margin-left: -2px; border-radius: 2px; background: var(--ink-2); animation: wheel 1.8s infinite; }
-@keyframes wheel { 0% { transform: translateY(0); opacity: 1; } 70% { transform: translateY(10px); opacity: 0; } 100% { opacity: 0; } }
+
+/* bottom bar: text left, buttons centre, current team right */
+.hero-bottom {
+  position: absolute; z-index: 2; left: 0; right: 0; bottom: clamp(28px, 5vh, 52px);
+  padding: 0 var(--gutter);
+  display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: end; gap: 20px;
+}
+.hero-bottom .lede { max-width: 300px; color: var(--ink-2); font-size: .92rem; line-height: 1.55; }
+.hero-bottom .ctas { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+.now-showing { justify-self: end; padding: 10px 16px; border-radius: 18px; display: grid; gap: 3px; min-width: 230px; }
+.ns-team { display: flex; align-items: center; gap: 10px; font-family: var(--f-display); font-size: .98rem; white-space: nowrap; }
+.ns-count { margin-left: auto; padding-left: 12px; font-size: .75rem; color: var(--ink-3); white-space: nowrap; }
+@media (max-width: 860px) {
+  .hero-bottom { grid-template-columns: 1fr; justify-items: center; text-align: center; gap: 14px; }
+  .hero-bottom .lede { display: none; }
+  .now-showing { justify-self: center; }
+}
 
 /* ---------- page shell ---------- */
 main { position: relative; z-index: 3; max-width: 1280px; margin: 0 auto; padding: 0 var(--gutter) 40px; display: grid; gap: clamp(72px, 10vw, 130px); }
@@ -176,7 +189,7 @@ section { scroll-margin-top: 90px; min-width: 0; }
 .sec-head p { max-width: 62ch; margin-top: 10px; color: var(--ink-2); }
 
 /* catalogue of features */
-.catalog { margin-top: clamp(-120px, -9vw, -60px); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.catalog { margin-top: clamp(40px, 6vw, 72px); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
 @media (max-width: 960px) { .catalog { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 560px) { .catalog { grid-template-columns: 1fr; } }
 .feat { display: grid; gap: 12px; padding: 22px; text-decoration: none; min-height: 168px; align-content: start; }

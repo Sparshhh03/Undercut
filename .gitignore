@@ -9,3 +9,10 @@ Thumbs.db
 
 # Private notes for Claude Code sessions (kept local, never uploaded)
 CLAUDE.md
+
+# Working files for making the hero videos (not part of the website)
+site/media/refs/
+site/media/frames/
+
+# Full-quality master clips (web versions live in site/media/hero)
+media_masters/

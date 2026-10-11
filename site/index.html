@@ -38,17 +38,26 @@
 </nav>
 
 <header class="intro" id="top">
-  <div class="grid-bg" aria-hidden="true"><canvas id="grid-canvas"></canvas></div>
+  <div class="hero-stage" aria-hidden="true">
+    <video muted playsinline preload="auto"></video>
+    <video muted playsinline preload="none"></video>
+    <div class="hero-shade"></div>
+  </div>
   <div class="intro-copy">
     <span class="eyebrow">F1 race intelligence · <span id="intro-season">2026</span> season</span>
     <h1 id="intro-title" aria-label="Call the race before lights out.">Call the race before lights out.</h1>
-    <p class="lede">Machine-learning predictions for every Grand Prix: the full finishing order, win and podium odds, live standings, and an honest record of how often it's right.</p>
+  </div>
+  <div class="hero-bottom">
+    <p class="lede">Machine-learning predictions for every Grand Prix: the full finishing order, win and podium odds, and an honest record of how often it's right.</p>
     <div class="ctas">
       <a class="pill-btn primary" href="#race" id="cta-next">See the next race</a>
       <a class="pill-btn" href="#teams">Teams &amp; standings</a>
     </div>
+    <div class="now-showing window" aria-live="polite">
+      <span class="eyebrow">Now showing</span>
+      <span class="ns-team"><span class="team-dot" id="ns-dot"></span><b id="ns-name">Red Bull Racing</b><span class="ns-count num" id="ns-count">1 / 4</span></span>
+    </div>
   </div>
-  <div class="hint" aria-hidden="true"><i></i>Scroll</div>
 </header>
 
 <main>

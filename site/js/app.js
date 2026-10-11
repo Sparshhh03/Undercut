@@ -1,6 +1,6 @@
 // Undercut: page logic. Loads data.json, renders every section, and boots the 3D scenes.
 // The 3D modules are imported lazily, so the page still works if WebGL or the CDN fails.
-import { createGrid } from './grid.js';
+import { createHeroVideo } from './hero-video.js';
 const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const G = window.gsap && !RM ? window.gsap : null;
 if (window.gsap) gsap.ticker.lagSmoothing(0); // keep animations on real time
@@ -404,7 +404,7 @@ function motion() {
   if (!G) return;
   const tl = G.timeline({ defaults: { ease: 'power3.out' } });
   tl.from('.nav', { y: -60, duration: 0.7 })
-    .from('.intro-copy > *', { y: 26, duration: 0.7, stagger: 0.08 }, '-=.4')
+    .from('.intro-copy > *, .hero-bottom > *', { y: 26, duration: 0.7, stagger: 0.08 }, '-=.4')
     .from('.feat', { y: 50, rotateX: 12, duration: 0.9, stagger: 0.06, ease: 'back.out(1.4)' }, '-=.5');
   introTweens.push(tl);
   setTimeout(() => introTweens.forEach(t => t.progress(1)), 3200);
@@ -447,7 +447,27 @@ async function boot3D() {
 }
 
 // ---------- boot ----------
-createGrid($('.intro'), $('#grid-canvas'), { reducedMotion: RM });
+// Intro video: each clip is one team's car; add new teams here as their clips are ready.
+const HERO_CLIPS = [
+  { base: 'media/hero/01-red_bull', team: 'red_bull' },
+  { base: 'media/hero/02-mercedes', team: 'mercedes' },
+  { base: 'media/hero/03-ferrari', team: 'ferrari' },
+  { base: 'media/hero/04-mclaren', team: 'mclaren' },
+];
+createHeroVideo($('.hero-stage'), HERO_CLIPS, {
+  reducedMotion: RM,
+  onChange(clip, i) {
+    const [name, color] = team(clip.team);
+    const box = $('.now-showing');
+    const swap = () => {
+      $('#ns-name').textContent = name;
+      $('#ns-dot').style.setProperty('--tc', color);
+      $('#ns-count').textContent = `${i + 1} / ${HERO_CLIPS.length}`;
+    };
+    if (G && i > 0) G.timeline().to(box, { opacity: 0, y: 6, duration: 0.25 }).add(swap).to(box, { opacity: 1, y: 0, duration: 0.45, ease: 'power3.out' });
+    else swap();
+  },
+});
 typeTitle();
 fetch('data.json').then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }).then(d => {
   DATA = d;
