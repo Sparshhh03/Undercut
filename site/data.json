@@ -1,7 +1,7 @@
 {
- "generated_at": "2026-10-11T13:35+00:00",
+ "generated_at": "2026-10-11T20:21+00:00",
  "season": 2026,
- "next_round": 17,
+ "next_round": 18,
  "races": [
   {
    "round": 1,
@@ -4091,8 +4091,8 @@
    "country": "Singapore",
    "date": "2026-10-11",
    "time": "12:00:00Z",
-   "status": "upcoming",
-   "grid_source": "Qualifying result",
+   "status": "completed",
+   "grid_source": "Official starting grid",
    "rows": [
     {
      "pred": 1,
@@ -4101,9 +4101,9 @@
      "code": "VER",
      "team": "red_bull",
      "grid": 1,
-     "win": 0.3423,
-     "podium": 0.6653,
-     "actual": null
+     "win": 0.3618,
+     "podium": 0.7388,
+     "actual": 1
     },
     {
      "pred": 2,
@@ -4112,9 +4112,9 @@
      "code": "ANT",
      "team": "mercedes",
      "grid": 4,
-     "win": 0.2708,
-     "podium": 0.5969,
-     "actual": null
+     "win": 0.2861,
+     "podium": 0.6628,
+     "actual": 3
     },
     {
      "pred": 3,
@@ -4123,9 +4123,9 @@
      "code": "LEC",
      "team": "ferrari",
      "grid": 2,
-     "win": 0.1401,
-     "podium": 0.4795,
-     "actual": null
+     "win": 0.148,
+     "podium": 0.5324,
+     "actual": 2
     },
     {
      "pred": 4,
@@ -4134,42 +4134,42 @@
      "code": "HAM",
      "team": "ferrari",
      "grid": 3,
-     "win": 0.1032,
-     "podium": 0.374,
-     "actual": null
+     "win": 0.1091,
+     "podium": 0.4154,
+     "actual": 6
     },
     {
      "pred": 5,
-     "driver": "russell",
-     "name": "George Russell",
-     "code": "RUS",
-     "team": "mercedes",
-     "grid": 6,
-     "win": 0.0628,
-     "podium": 0.3789,
-     "actual": null
-    },
-    {
-     "pred": 6,
      "driver": "norris",
      "name": "Lando Norris",
      "code": "NOR",
      "team": "mclaren",
      "grid": 5,
-     "win": 0.0583,
-     "podium": 0.2823,
-     "actual": null
+     "win": 0.0616,
+     "podium": 0.3134,
+     "actual": 4
     },
     {
-     "pred": 7,
+     "pred": 6,
      "driver": "piastri",
      "name": "Oscar Piastri",
      "code": "PIA",
      "team": "mclaren",
-     "grid": 7,
-     "win": 0.0142,
-     "podium": 0.1218,
-     "actual": null
+     "grid": 6,
+     "win": 0.0201,
+     "podium": 0.1706,
+     "actual": 5
+    },
+    {
+     "pred": 7,
+     "driver": "russell",
+     "name": "George Russell",
+     "code": "RUS",
+     "team": "mercedes",
+     "grid": 19,
+     "win": 0.0015,
+     "podium": 0.0202,
+     "actual": 9
     },
     {
      "pred": 8,
@@ -4177,10 +4177,10 @@
      "name": "Liam Lawson",
      "code": "LAW",
      "team": "rb",
-     "grid": 9,
-     "win": 0.0031,
-     "podium": 0.0303,
-     "actual": null
+     "grid": 8,
+     "win": 0.0044,
+     "podium": 0.0438,
+     "actual": 7
     },
     {
      "pred": 9,
@@ -4188,10 +4188,10 @@
      "name": "Pierre Gasly",
      "code": "GAS",
      "team": "alpine",
-     "grid": 8,
-     "win": 0.0027,
-     "podium": 0.029,
-     "actual": null
+     "grid": 7,
+     "win": 0.0039,
+     "podium": 0.042,
+     "actual": 11
     },
     {
      "pred": 10,
@@ -4199,10 +4199,10 @@
      "name": "Arvid Lindblad",
      "code": "LIN",
      "team": "rb",
-     "grid": 10,
-     "win": 0.0015,
-     "podium": 0.0181,
-     "actual": null
+     "grid": 9,
+     "win": 0.0021,
+     "podium": 0.0263,
+     "actual": 15
     },
     {
      "pred": 11,
@@ -4212,8 +4212,8 @@
      "team": "red_bull",
      "grid": 22,
      "win": 0.0001,
-     "podium": 0.0019,
-     "actual": null
+     "podium": 0.0021,
+     "actual": 10
     },
     {
      "pred": 12,
@@ -4221,10 +4221,10 @@
      "name": "Nico Hülkenberg",
      "code": "HUL",
      "team": "audi",
-     "grid": 11,
-     "win": 0.0004,
-     "podium": 0.0095,
-     "actual": null
+     "grid": 10,
+     "win": 0.0006,
+     "podium": 0.0138,
+     "actual": 8
     },
     {
      "pred": 13,
@@ -4232,32 +4232,32 @@
      "name": "Oliver Bearman",
      "code": "BEA",
      "team": "haas",
-     "grid": 12,
-     "win": 0.0002,
-     "podium": 0.0049,
-     "actual": null
+     "grid": 11,
+     "win": 0.0003,
+     "podium": 0.0071,
+     "actual": 12
     },
     {
      "pred": 14,
-     "driver": "ocon",
-     "name": "Esteban Ocon",
-     "code": "OCO",
-     "team": "haas",
-     "grid": 13,
-     "win": 0.0001,
-     "podium": 0.0025,
-     "actual": null
-    },
-    {
-     "pred": 15,
      "driver": "colapinto",
      "name": "Franco Colapinto",
      "code": "COL",
      "team": "alpine",
-     "grid": 16,
+     "grid": 15,
      "win": 0.0001,
-     "podium": 0.0016,
-     "actual": null
+     "podium": 0.0023,
+     "actual": 21
+    },
+    {
+     "pred": 15,
+     "driver": "ocon",
+     "name": "Esteban Ocon",
+     "code": "OCO",
+     "team": "haas",
+     "grid": 12,
+     "win": 0.0002,
+     "podium": 0.0037,
+     "actual": 13
     },
     {
      "pred": 16,
@@ -4265,10 +4265,10 @@
      "name": "Gabriel Bortoleto",
      "code": "BOR",
      "team": "audi",
-     "grid": 15,
-     "win": 0.0,
-     "podium": 0.0012,
-     "actual": null
+     "grid": 14,
+     "win": 0.0001,
+     "podium": 0.0018,
+     "actual": 22
     },
     {
      "pred": 17,
@@ -4276,54 +4276,54 @@
      "name": "Carlos Sainz",
      "code": "SAI",
      "team": "williams",
-     "grid": 14,
-     "win": 0.0,
-     "podium": 0.0014,
-     "actual": null
+     "grid": 13,
+     "win": 0.0001,
+     "podium": 0.002,
+     "actual": 14
     },
     {
      "pred": 18,
-     "driver": "alonso",
-     "name": "Fernando Alonso",
-     "code": "ALO",
-     "team": "aston_martin",
-     "grid": 17,
-     "win": 0.0,
-     "podium": 0.0004,
-     "actual": null
-    },
-    {
-     "pred": 19,
      "driver": "albon",
      "name": "Alexander Albon",
      "code": "ALB",
      "team": "williams",
-     "grid": 18,
+     "grid": 16,
      "win": 0.0,
-     "podium": 0.0003,
-     "actual": null
+     "podium": 0.0006,
+     "actual": 18
+    },
+    {
+     "pred": 19,
+     "driver": "alonso",
+     "name": "Fernando Alonso",
+     "code": "ALO",
+     "team": "aston_martin",
+     "grid": 20,
+     "win": 0.0,
+     "podium": 0.0002,
+     "actual": 16
     },
     {
      "pred": 20,
-     "driver": "bottas",
-     "name": "Valtteri Bottas",
-     "code": "BOT",
-     "team": "cadillac",
-     "grid": 21,
-     "win": 0.0,
-     "podium": 0.0,
-     "actual": null
-    },
-    {
-     "pred": 21,
      "driver": "perez",
      "name": "Sergio Pérez",
      "code": "PER",
      "team": "cadillac",
-     "grid": 20,
+     "grid": 17,
+     "win": 0.0,
+     "podium": 0.0002,
+     "actual": 17
+    },
+    {
+     "pred": 21,
+     "driver": "bottas",
+     "name": "Valtteri Bottas",
+     "code": "BOT",
+     "team": "cadillac",
+     "grid": 18,
      "win": 0.0,
      "podium": 0.0001,
-     "actual": null
+     "actual": 19
     },
     {
      "pred": 22,
@@ -4331,21 +4331,270 @@
      "name": "Lance Stroll",
      "code": "STR",
      "team": "aston_martin",
-     "grid": 19,
+     "grid": 21,
      "win": 0.0,
-     "podium": 0.0002,
+     "podium": 0.0001,
+     "actual": 20
+    }
+   ]
+  },
+  {
+   "round": 18,
+   "name": "United States Grand Prix",
+   "circuit": "Circuit of the Americas",
+   "locality": "Austin",
+   "country": "USA",
+   "date": "2026-10-25",
+   "time": "20:00:00Z",
+   "status": "upcoming",
+   "grid_source": "Estimated grid (qualifying not run yet)",
+   "rows": [
+    {
+     "pred": 1,
+     "driver": "leclerc",
+     "name": "Charles Leclerc",
+     "code": "LEC",
+     "team": "ferrari",
+     "grid": 1,
+     "win": 0.2416,
+     "podium": 0.5615,
+     "actual": null
+    },
+    {
+     "pred": 2,
+     "driver": "antonelli",
+     "name": "Andrea Kimi Antonelli",
+     "code": "ANT",
+     "team": "mercedes",
+     "grid": 5,
+     "win": 0.2609,
+     "podium": 0.5097,
+     "actual": null
+    },
+    {
+     "pred": 3,
+     "driver": "hamilton",
+     "name": "Lewis Hamilton",
+     "code": "HAM",
+     "team": "ferrari",
+     "grid": 2,
+     "win": 0.1204,
+     "podium": 0.3898,
+     "actual": null
+    },
+    {
+     "pred": 4,
+     "driver": "max_verstappen",
+     "name": "Max Verstappen",
+     "code": "VER",
+     "team": "red_bull",
+     "grid": 7,
+     "win": 0.1367,
+     "podium": 0.4567,
+     "actual": null
+    },
+    {
+     "pred": 5,
+     "driver": "norris",
+     "name": "Lando Norris",
+     "code": "NOR",
+     "team": "mclaren",
+     "grid": 4,
+     "win": 0.0682,
+     "podium": 0.2649,
+     "actual": null
+    },
+    {
+     "pred": 6,
+     "driver": "russell",
+     "name": "George Russell",
+     "code": "RUS",
+     "team": "mercedes",
+     "grid": 6,
+     "win": 0.0559,
+     "podium": 0.3055,
+     "actual": null
+    },
+    {
+     "pred": 7,
+     "driver": "piastri",
+     "name": "Oscar Piastri",
+     "code": "PIA",
+     "team": "mclaren",
+     "grid": 3,
+     "win": 0.0722,
+     "podium": 0.2903,
+     "actual": null
+    },
+    {
+     "pred": 8,
+     "driver": "hadjar",
+     "name": "Isack Hadjar",
+     "code": "HAD",
+     "team": "red_bull",
+     "grid": 8,
+     "win": 0.0252,
+     "podium": 0.1231,
+     "actual": null
+    },
+    {
+     "pred": 9,
+     "driver": "gasly",
+     "name": "Pierre Gasly",
+     "code": "GAS",
+     "team": "alpine",
+     "grid": 9,
+     "win": 0.0046,
+     "podium": 0.0212,
+     "actual": null
+    },
+    {
+     "pred": 10,
+     "driver": "lawson",
+     "name": "Liam Lawson",
+     "code": "LAW",
+     "team": "rb",
+     "grid": 11,
+     "win": 0.0045,
+     "podium": 0.0202,
+     "actual": null
+    },
+    {
+     "pred": 11,
+     "driver": "colapinto",
+     "name": "Franco Colapinto",
+     "code": "COL",
+     "team": "alpine",
+     "grid": 10,
+     "win": 0.0032,
+     "podium": 0.0189,
+     "actual": null
+    },
+    {
+     "pred": 12,
+     "driver": "arvid_lindblad",
+     "name": "Arvid Lindblad",
+     "code": "LIN",
+     "team": "rb",
+     "grid": 12,
+     "win": 0.0027,
+     "podium": 0.0135,
+     "actual": null
+    },
+    {
+     "pred": 13,
+     "driver": "hulkenberg",
+     "name": "Nico Hülkenberg",
+     "code": "HUL",
+     "team": "audi",
+     "grid": 13,
+     "win": 0.0013,
+     "podium": 0.0068,
+     "actual": null
+    },
+    {
+     "pred": 14,
+     "driver": "bortoleto",
+     "name": "Gabriel Bortoleto",
+     "code": "BOR",
+     "team": "audi",
+     "grid": 14,
+     "win": 0.0008,
+     "podium": 0.0047,
+     "actual": null
+    },
+    {
+     "pred": 15,
+     "driver": "ocon",
+     "name": "Esteban Ocon",
+     "code": "OCO",
+     "team": "haas",
+     "grid": 15,
+     "win": 0.0007,
+     "podium": 0.0039,
+     "actual": null
+    },
+    {
+     "pred": 16,
+     "driver": "bearman",
+     "name": "Oliver Bearman",
+     "code": "BEA",
+     "team": "haas",
+     "grid": 16,
+     "win": 0.0005,
+     "podium": 0.0029,
+     "actual": null
+    },
+    {
+     "pred": 17,
+     "driver": "albon",
+     "name": "Alexander Albon",
+     "code": "ALB",
+     "team": "williams",
+     "grid": 18,
+     "win": 0.0001,
+     "podium": 0.0017,
+     "actual": null
+    },
+    {
+     "pred": 18,
+     "driver": "sainz",
+     "name": "Carlos Sainz",
+     "code": "SAI",
+     "team": "williams",
+     "grid": 17,
+     "win": 0.0003,
+     "podium": 0.0016,
+     "actual": null
+    },
+    {
+     "pred": 19,
+     "driver": "bottas",
+     "name": "Valtteri Bottas",
+     "code": "BOT",
+     "team": "cadillac",
+     "grid": 22,
+     "win": 0.0,
+     "podium": 0.0005,
+     "actual": null
+    },
+    {
+     "pred": 20,
+     "driver": "stroll",
+     "name": "Lance Stroll",
+     "code": "STR",
+     "team": "aston_martin",
+     "grid": 20,
+     "win": 0.0001,
+     "podium": 0.0011,
+     "actual": null
+    },
+    {
+     "pred": 21,
+     "driver": "alonso",
+     "name": "Fernando Alonso",
+     "code": "ALO",
+     "team": "aston_martin",
+     "grid": 19,
+     "win": 0.0002,
+     "podium": 0.0008,
+     "actual": null
+    },
+    {
+     "pred": 22,
+     "driver": "perez",
+     "name": "Sergio Pérez",
+     "code": "PER",
+     "team": "cadillac",
+     "grid": 21,
+     "win": 0.0001,
+     "podium": 0.0005,
      "actual": null
     }
    ]
   }
  ],
  "calendar": [
-  {
-   "round": 18,
-   "name": "United States Grand Prix",
-   "country": "USA",
-   "date": "2026-10-25"
-  },
   {
    "round": 19,
    "name": "Mexico City Grand Prix",
@@ -4553,6 +4802,17 @@
    "grid_winner": true,
    "model_podium": 3,
    "grid_podium": 3
+  },
+  {
+   "round": 17,
+   "name": "Singapore Grand Prix",
+   "country": "Singapore",
+   "winner": "VER",
+   "winner_team": "red_bull",
+   "model_winner": true,
+   "grid_winner": true,
+   "model_podium": 3,
+   "grid_podium": 2
   }
  ],
  "standings": {
@@ -4620,12 +4880,16 @@
    {
     "round": 16,
     "name": "Bahrain Grand Prix in Malaysia"
+   },
+   {
+    "round": 17,
+    "name": "Singapore Grand Prix"
    }
   ],
   "drivers": [
    {
     "pos": 1,
-    "points": 325.0,
+    "points": 340.0,
     "wins": 8,
     "driver": "antonelli",
     "code": "ANT",
@@ -4761,17 +5025,25 @@
       "dnf": false,
       "status": "Finished",
       "points": 18.0
+     },
+     {
+      "round": 17,
+      "pos": 3,
+      "grid": 4,
+      "dnf": false,
+      "status": "Finished",
+      "points": 15.0
      }
     ],
-    "starts": 16,
-    "podiums": 13,
+    "starts": 17,
+    "podiums": 14,
     "poles": 6,
     "dnfs": 1,
     "best": 1
    },
    {
     "pos": 2,
-    "points": 236.0,
+    "points": 238.0,
     "wins": 3,
     "driver": "russell",
     "code": "RUS",
@@ -4907,9 +5179,17 @@
       "dnf": true,
       "status": "Retired",
       "points": 0.0
+     },
+     {
+      "round": 17,
+      "pos": 9,
+      "grid": 19,
+      "dnf": false,
+      "status": "Finished",
+      "points": 2.0
      }
     ],
-    "starts": 16,
+    "starts": 17,
     "podiums": 8,
     "poles": 5,
     "dnfs": 3,
@@ -4917,7 +5197,7 @@
    },
    {
     "pos": 3,
-    "points": 221.0,
+    "points": 229.0,
     "wins": 1,
     "driver": "hamilton",
     "code": "HAM",
@@ -5053,9 +5333,17 @@
       "dnf": false,
       "status": "Finished",
       "points": 15.0
+     },
+     {
+      "round": 17,
+      "pos": 6,
+      "grid": 3,
+      "dnf": false,
+      "status": "Finished",
+      "points": 8.0
      }
     ],
-    "starts": 16,
+    "starts": 17,
     "podiums": 6,
     "poles": 0,
     "dnfs": 1,
@@ -5063,7 +5351,161 @@
    },
    {
     "pos": 4,
-    "points": 197.0,
+    "points": 221.0,
+    "wins": 2,
+    "driver": "max_verstappen",
+    "code": "VER",
+    "name": "Max Verstappen",
+    "number": "3",
+    "nationality": "Dutch",
+    "team": "red_bull",
+    "finishes": [
+     {
+      "round": 1,
+      "pos": 6,
+      "grid": 20,
+      "dnf": false,
+      "status": "Finished",
+      "points": 8.0
+     },
+     {
+      "round": 2,
+      "pos": 16,
+      "grid": 8,
+      "dnf": true,
+      "status": "Retired",
+      "points": 0.0
+     },
+     {
+      "round": 3,
+      "pos": 8,
+      "grid": 11,
+      "dnf": false,
+      "status": "Finished",
+      "points": 4.0
+     },
+     {
+      "round": 4,
+      "pos": 5,
+      "grid": 2,
+      "dnf": false,
+      "status": "Finished",
+      "points": 10.0
+     },
+     {
+      "round": 5,
+      "pos": 3,
+      "grid": 6,
+      "dnf": false,
+      "status": "Finished",
+      "points": 15.0
+     },
+     {
+      "round": 6,
+      "pos": 22,
+      "grid": 2,
+      "dnf": true,
+      "status": "Retired",
+      "points": 0.0
+     },
+     {
+      "round": 7,
+      "pos": 4,
+      "grid": 5,
+      "dnf": false,
+      "status": "Finished",
+      "points": 12.0
+     },
+     {
+      "round": 8,
+      "pos": 2,
+      "grid": 5,
+      "dnf": false,
+      "status": "Finished",
+      "points": 18.0
+     },
+     {
+      "round": 9,
+      "pos": 20,
+      "grid": 7,
+      "dnf": true,
+      "status": "Retired",
+      "points": 0.0
+     },
+     {
+      "round": 10,
+      "pos": 3,
+      "grid": 2,
+      "dnf": false,
+      "status": "Finished",
+      "points": 15.0
+     },
+     {
+      "round": 11,
+      "pos": 2,
+      "grid": 4,
+      "dnf": false,
+      "status": "Finished",
+      "points": 18.0
+     },
+     {
+      "round": 12,
+      "pos": 22,
+      "grid": 7,
+      "dnf": true,
+      "status": "Retired",
+      "points": 0.0
+     },
+     {
+      "round": 13,
+      "pos": 3,
+      "grid": 5,
+      "dnf": false,
+      "status": "Finished",
+      "points": 15.0
+     },
+     {
+      "round": 14,
+      "pos": 2,
+      "grid": 3,
+      "dnf": false,
+      "status": "Finished",
+      "points": 18.0
+     },
+     {
+      "round": 15,
+      "pos": 2,
+      "grid": 8,
+      "dnf": false,
+      "status": "Finished",
+      "points": 18.0
+     },
+     {
+      "round": 16,
+      "pos": 1,
+      "grid": 1,
+      "dnf": false,
+      "status": "Finished",
+      "points": 25.0
+     },
+     {
+      "round": 17,
+      "pos": 1,
+      "grid": 1,
+      "dnf": false,
+      "status": "Finished",
+      "points": 25.0
+     }
+    ],
+    "starts": 17,
+    "podiums": 9,
+    "poles": 2,
+    "dnfs": 4,
+    "best": 1
+   },
+   {
+    "pos": 5,
+    "points": 215.0,
     "wins": 1,
     "driver": "leclerc",
     "code": "LEC",
@@ -5199,163 +5641,25 @@
       "dnf": false,
       "status": "Finished",
       "points": 12.0
+     },
+     {
+      "round": 17,
+      "pos": 2,
+      "grid": 2,
+      "dnf": false,
+      "status": "Finished",
+      "points": 18.0
      }
     ],
-    "starts": 16,
-    "podiums": 4,
+    "starts": 17,
+    "podiums": 5,
     "poles": 0,
     "dnfs": 3,
     "best": 1
    },
    {
-    "pos": 5,
-    "points": 196.0,
-    "wins": 1,
-    "driver": "max_verstappen",
-    "code": "VER",
-    "name": "Max Verstappen",
-    "number": "3",
-    "nationality": "Dutch",
-    "team": "red_bull",
-    "finishes": [
-     {
-      "round": 1,
-      "pos": 6,
-      "grid": 20,
-      "dnf": false,
-      "status": "Finished",
-      "points": 8.0
-     },
-     {
-      "round": 2,
-      "pos": 16,
-      "grid": 8,
-      "dnf": true,
-      "status": "Retired",
-      "points": 0.0
-     },
-     {
-      "round": 3,
-      "pos": 8,
-      "grid": 11,
-      "dnf": false,
-      "status": "Finished",
-      "points": 4.0
-     },
-     {
-      "round": 4,
-      "pos": 5,
-      "grid": 2,
-      "dnf": false,
-      "status": "Finished",
-      "points": 10.0
-     },
-     {
-      "round": 5,
-      "pos": 3,
-      "grid": 6,
-      "dnf": false,
-      "status": "Finished",
-      "points": 15.0
-     },
-     {
-      "round": 6,
-      "pos": 22,
-      "grid": 2,
-      "dnf": true,
-      "status": "Retired",
-      "points": 0.0
-     },
-     {
-      "round": 7,
-      "pos": 4,
-      "grid": 5,
-      "dnf": false,
-      "status": "Finished",
-      "points": 12.0
-     },
-     {
-      "round": 8,
-      "pos": 2,
-      "grid": 5,
-      "dnf": false,
-      "status": "Finished",
-      "points": 18.0
-     },
-     {
-      "round": 9,
-      "pos": 20,
-      "grid": 7,
-      "dnf": true,
-      "status": "Retired",
-      "points": 0.0
-     },
-     {
-      "round": 10,
-      "pos": 3,
-      "grid": 2,
-      "dnf": false,
-      "status": "Finished",
-      "points": 15.0
-     },
-     {
-      "round": 11,
-      "pos": 2,
-      "grid": 4,
-      "dnf": false,
-      "status": "Finished",
-      "points": 18.0
-     },
-     {
-      "round": 12,
-      "pos": 22,
-      "grid": 7,
-      "dnf": true,
-      "status": "Retired",
-      "points": 0.0
-     },
-     {
-      "round": 13,
-      "pos": 3,
-      "grid": 5,
-      "dnf": false,
-      "status": "Finished",
-      "points": 15.0
-     },
-     {
-      "round": 14,
-      "pos": 2,
-      "grid": 3,
-      "dnf": false,
-      "status": "Finished",
-      "points": 18.0
-     },
-     {
-      "round": 15,
-      "pos": 2,
-      "grid": 8,
-      "dnf": false,
-      "status": "Finished",
-      "points": 18.0
-     },
-     {
-      "round": 16,
-      "pos": 1,
-      "grid": 1,
-      "dnf": false,
-      "status": "Finished",
-      "points": 25.0
-     }
-    ],
-    "starts": 16,
-    "podiums": 8,
-    "poles": 2,
-    "dnfs": 4,
-    "best": 1
-   },
-   {
     "pos": 6,
-    "points": 189.0,
+    "points": 201.0,
     "wins": 2,
     "driver": "norris",
     "code": "NOR",
@@ -5491,9 +5795,17 @@
       "dnf": false,
       "status": "Finished",
       "points": 2.0
+     },
+     {
+      "round": 17,
+      "pos": 4,
+      "grid": 5,
+      "dnf": false,
+      "status": "Finished",
+      "points": 12.0
      }
     ],
-    "starts": 16,
+    "starts": 17,
     "podiums": 5,
     "poles": 3,
     "dnfs": 4,
@@ -5501,7 +5813,7 @@
    },
    {
     "pos": 7,
-    "points": 128.0,
+    "points": 138.0,
     "wins": 0,
     "driver": "piastri",
     "code": "PIA",
@@ -5637,9 +5949,17 @@
       "dnf": false,
       "status": "Finished",
       "points": 8.0
+     },
+     {
+      "round": 17,
+      "pos": 5,
+      "grid": 6,
+      "dnf": false,
+      "status": "Finished",
+      "points": 10.0
      }
     ],
-    "starts": 16,
+    "starts": 17,
     "podiums": 2,
     "poles": 0,
     "dnfs": 3,
@@ -5647,7 +5967,7 @@
    },
    {
     "pos": 8,
-    "points": 96.0,
+    "points": 97.0,
     "wins": 0,
     "driver": "hadjar",
     "code": "HAD",
@@ -5759,9 +6079,17 @@
       "dnf": false,
       "status": "Finished",
       "points": 10.0
+     },
+     {
+      "round": 17,
+      "pos": 10,
+      "grid": 22,
+      "dnf": false,
+      "status": "Finished",
+      "points": 1.0
      }
     ],
-    "starts": 13,
+    "starts": 14,
     "podiums": 2,
     "poles": 0,
     "dnfs": 2,
@@ -5769,7 +6097,7 @@
    },
    {
     "pos": 9,
-    "points": 69.0,
+    "points": 75.0,
     "wins": 0,
     "driver": "lawson",
     "code": "LAW",
@@ -5905,9 +6233,17 @@
       "dnf": false,
       "status": "Finished",
       "points": 6.0
+     },
+     {
+      "round": 17,
+      "pos": 7,
+      "grid": 8,
+      "dnf": false,
+      "status": "Finished",
+      "points": 6.0
      }
     ],
-    "starts": 16,
+    "starts": 17,
     "podiums": 0,
     "poles": 0,
     "dnfs": 1,
@@ -6051,9 +6387,17 @@
       "dnf": false,
       "status": "Finished",
       "points": 0.0
+     },
+     {
+      "round": 17,
+      "pos": 11,
+      "grid": 7,
+      "dnf": false,
+      "status": "Lapped",
+      "points": 0.0
      }
     ],
-    "starts": 16,
+    "starts": 17,
     "podiums": 0,
     "poles": 1,
     "dnfs": 2,
@@ -6197,9 +6541,17 @@
       "dnf": false,
       "status": "Finished",
       "points": 1.0
+     },
+     {
+      "round": 17,
+      "pos": 15,
+      "grid": 9,
+      "dnf": false,
+      "status": "Lapped",
+      "points": 0.0
      }
     ],
-    "starts": 16,
+    "starts": 17,
     "podiums": 0,
     "poles": 0,
     "dnfs": 1,
@@ -6343,12 +6695,20 @@
       "dnf": false,
       "status": "Finished",
       "points": 0.0
+     },
+     {
+      "round": 17,
+      "pos": 21,
+      "grid": 15,
+      "dnf": true,
+      "status": "Retired",
+      "points": 0.0
      }
     ],
-    "starts": 16,
+    "starts": 17,
     "podiums": 0,
     "poles": 0,
-    "dnfs": 1,
+    "dnfs": 2,
     "best": 6
    },
    {
@@ -6489,9 +6849,17 @@
       "dnf": false,
       "status": "Finished",
       "points": 0.0
+     },
+     {
+      "round": 17,
+      "pos": 12,
+      "grid": 11,
+      "dnf": false,
+      "status": "Lapped",
+      "points": 0.0
      }
     ],
-    "starts": 16,
+    "starts": 17,
     "podiums": 0,
     "poles": 0,
     "dnfs": 4,
@@ -6499,6 +6867,160 @@
    },
    {
     "pos": 14,
+    "points": 13.0,
+    "wins": 0,
+    "driver": "hulkenberg",
+    "code": "HUL",
+    "name": "Nico Hülkenberg",
+    "number": "27",
+    "nationality": "German",
+    "team": "audi",
+    "finishes": [
+     {
+      "round": 1,
+      "pos": 22,
+      "grid": 11,
+      "dnf": true,
+      "status": "Did not start",
+      "points": 0.0
+     },
+     {
+      "round": 2,
+      "pos": 11,
+      "grid": 11,
+      "dnf": false,
+      "status": "Lapped",
+      "points": 0.0
+     },
+     {
+      "round": 3,
+      "pos": 11,
+      "grid": 13,
+      "dnf": false,
+      "status": "Finished",
+      "points": 0.0
+     },
+     {
+      "round": 4,
+      "pos": 19,
+      "grid": 10,
+      "dnf": true,
+      "status": "Retired",
+      "points": 0.0
+     },
+     {
+      "round": 5,
+      "pos": 12,
+      "grid": 11,
+      "dnf": false,
+      "status": "Lapped",
+      "points": 0.0
+     },
+     {
+      "round": 6,
+      "pos": 13,
+      "grid": 13,
+      "dnf": false,
+      "status": "Finished",
+      "points": 0.0
+     },
+     {
+      "round": 7,
+      "pos": 20,
+      "grid": 9,
+      "dnf": true,
+      "status": "Retired",
+      "points": 0.0
+     },
+     {
+      "round": 8,
+      "pos": 12,
+      "grid": 14,
+      "dnf": false,
+      "status": "Lapped",
+      "points": 0.0
+     },
+     {
+      "round": 9,
+      "pos": 22,
+      "grid": 12,
+      "dnf": true,
+      "status": "Retired",
+      "points": 0.0
+     },
+     {
+      "round": 10,
+      "pos": 13,
+      "grid": 12,
+      "dnf": false,
+      "status": "Finished",
+      "points": 0.0
+     },
+     {
+      "round": 11,
+      "pos": 9,
+      "grid": 10,
+      "dnf": false,
+      "status": "Lapped",
+      "points": 2.0
+     },
+     {
+      "round": 12,
+      "pos": 8,
+      "grid": 13,
+      "dnf": false,
+      "status": "Lapped",
+      "points": 4.0
+     },
+     {
+      "round": 13,
+      "pos": 12,
+      "grid": 12,
+      "dnf": false,
+      "status": "Finished",
+      "points": 0.0
+     },
+     {
+      "round": 14,
+      "pos": 10,
+      "grid": 11,
+      "dnf": false,
+      "status": "Lapped",
+      "points": 1.0
+     },
+     {
+      "round": 15,
+      "pos": 11,
+      "grid": 18,
+      "dnf": false,
+      "status": "Finished",
+      "points": 0.0
+     },
+     {
+      "round": 16,
+      "pos": 11,
+      "grid": 15,
+      "dnf": false,
+      "status": "Finished",
+      "points": 0.0
+     },
+     {
+      "round": 17,
+      "pos": 8,
+      "grid": 10,
+      "dnf": false,
+      "status": "Finished",
+      "points": 4.0
+     }
+    ],
+    "starts": 17,
+    "podiums": 0,
+    "poles": 0,
+    "dnfs": 4,
+    "best": 8
+   },
+   {
+    "pos": 15,
     "points": 10.0,
     "wins": 0,
     "driver": "bortoleto",
@@ -6635,158 +7157,20 @@
       "dnf": false,
       "status": "Finished",
       "points": 0.0
-     }
-    ],
-    "starts": 16,
-    "podiums": 0,
-    "poles": 0,
-    "dnfs": 1,
-    "best": 8
-   },
-   {
-    "pos": 15,
-    "points": 9.0,
-    "wins": 0,
-    "driver": "hulkenberg",
-    "code": "HUL",
-    "name": "Nico Hülkenberg",
-    "number": "27",
-    "nationality": "German",
-    "team": "audi",
-    "finishes": [
+     },
      {
-      "round": 1,
+      "round": 17,
       "pos": 22,
-      "grid": 11,
-      "dnf": true,
-      "status": "Did not start",
-      "points": 0.0
-     },
-     {
-      "round": 2,
-      "pos": 11,
-      "grid": 11,
-      "dnf": false,
-      "status": "Lapped",
-      "points": 0.0
-     },
-     {
-      "round": 3,
-      "pos": 11,
-      "grid": 13,
-      "dnf": false,
-      "status": "Finished",
-      "points": 0.0
-     },
-     {
-      "round": 4,
-      "pos": 19,
-      "grid": 10,
-      "dnf": true,
-      "status": "Retired",
-      "points": 0.0
-     },
-     {
-      "round": 5,
-      "pos": 12,
-      "grid": 11,
-      "dnf": false,
-      "status": "Lapped",
-      "points": 0.0
-     },
-     {
-      "round": 6,
-      "pos": 13,
-      "grid": 13,
-      "dnf": false,
-      "status": "Finished",
-      "points": 0.0
-     },
-     {
-      "round": 7,
-      "pos": 20,
-      "grid": 9,
-      "dnf": true,
-      "status": "Retired",
-      "points": 0.0
-     },
-     {
-      "round": 8,
-      "pos": 12,
       "grid": 14,
-      "dnf": false,
-      "status": "Lapped",
-      "points": 0.0
-     },
-     {
-      "round": 9,
-      "pos": 22,
-      "grid": 12,
       "dnf": true,
       "status": "Retired",
       "points": 0.0
-     },
-     {
-      "round": 10,
-      "pos": 13,
-      "grid": 12,
-      "dnf": false,
-      "status": "Finished",
-      "points": 0.0
-     },
-     {
-      "round": 11,
-      "pos": 9,
-      "grid": 10,
-      "dnf": false,
-      "status": "Lapped",
-      "points": 2.0
-     },
-     {
-      "round": 12,
-      "pos": 8,
-      "grid": 13,
-      "dnf": false,
-      "status": "Lapped",
-      "points": 4.0
-     },
-     {
-      "round": 13,
-      "pos": 12,
-      "grid": 12,
-      "dnf": false,
-      "status": "Finished",
-      "points": 0.0
-     },
-     {
-      "round": 14,
-      "pos": 10,
-      "grid": 11,
-      "dnf": false,
-      "status": "Lapped",
-      "points": 1.0
-     },
-     {
-      "round": 15,
-      "pos": 11,
-      "grid": 18,
-      "dnf": false,
-      "status": "Finished",
-      "points": 0.0
-     },
-     {
-      "round": 16,
-      "pos": 11,
-      "grid": 15,
-      "dnf": false,
-      "status": "Finished",
-      "points": 0.0
      }
     ],
-    "starts": 16,
+    "starts": 17,
     "podiums": 0,
     "poles": 0,
-    "dnfs": 4,
+    "dnfs": 2,
     "best": 8
    },
    {
@@ -6927,9 +7311,17 @@
       "dnf": false,
       "status": "Finished",
       "points": 0.0
+     },
+     {
+      "round": 17,
+      "pos": 13,
+      "grid": 12,
+      "dnf": false,
+      "status": "Lapped",
+      "points": 0.0
      }
     ],
-    "starts": 16,
+    "starts": 17,
     "podiums": 0,
     "poles": 0,
     "dnfs": 1,
@@ -7073,9 +7465,17 @@
       "dnf": false,
       "status": "Finished",
       "points": 4.0
+     },
+     {
+      "round": 17,
+      "pos": 16,
+      "grid": 20,
+      "dnf": false,
+      "status": "Lapped",
+      "points": 0.0
      }
     ],
-    "starts": 16,
+    "starts": 17,
     "podiums": 0,
     "poles": 0,
     "dnfs": 6,
@@ -7219,9 +7619,17 @@
       "dnf": false,
       "status": "Finished",
       "points": 0.0
+     },
+     {
+      "round": 17,
+      "pos": 14,
+      "grid": 13,
+      "dnf": false,
+      "status": "Lapped",
+      "points": 0.0
      }
     ],
-    "starts": 16,
+    "starts": 17,
     "podiums": 0,
     "poles": 0,
     "dnfs": 3,
@@ -7365,12 +7773,20 @@
       "dnf": true,
       "status": "Retired",
       "points": 0.0
+     },
+     {
+      "round": 17,
+      "pos": 18,
+      "grid": 16,
+      "dnf": true,
+      "status": "Retired",
+      "points": 0.0
      }
     ],
-    "starts": 16,
+    "starts": 17,
     "podiums": 0,
     "poles": 0,
-    "dnfs": 6,
+    "dnfs": 7,
     "best": 8
    },
    {
@@ -7553,12 +7969,20 @@
       "dnf": false,
       "status": "Finished",
       "points": 0.0
+     },
+     {
+      "round": 17,
+      "pos": 20,
+      "grid": 21,
+      "dnf": true,
+      "status": "Retired",
+      "points": 0.0
      }
     ],
-    "starts": 16,
+    "starts": 17,
     "podiums": 0,
     "poles": 0,
-    "dnfs": 10,
+    "dnfs": 11,
     "best": 12
    },
    {
@@ -7699,9 +8123,17 @@
       "dnf": true,
       "status": "Retired",
       "points": 0.0
+     },
+     {
+      "round": 17,
+      "pos": 19,
+      "grid": 18,
+      "dnf": false,
+      "status": "Lapped",
+      "points": 0.0
      }
     ],
-    "starts": 16,
+    "starts": 17,
     "podiums": 0,
     "poles": 0,
     "dnfs": 8,
@@ -7845,9 +8277,17 @@
       "dnf": false,
       "status": "Finished",
       "points": 0.0
+     },
+     {
+      "round": 17,
+      "pos": 17,
+      "grid": 17,
+      "dnf": false,
+      "status": "Lapped",
+      "points": 0.0
      }
     ],
-    "starts": 16,
+    "starts": 17,
     "podiums": 0,
     "poles": 0,
     "dnfs": 5,
@@ -7857,15 +8297,15 @@
   "constructors": [
    {
     "pos": 1,
-    "points": 561.0,
+    "points": 578.0,
     "wins": 11,
     "team": "mercedes",
     "name": "Mercedes",
     "nationality": "German",
-    "podiums": 21,
+    "podiums": 22,
     "poles": 11,
     "dnfs": 4,
-    "avg_finish": 3.0714,
+    "avg_finish": 3.2667,
     "best": 1,
     "drivers": [
      "antonelli",
@@ -7874,15 +8314,15 @@
    },
    {
     "pos": 2,
-    "points": 418.0,
+    "points": 444.0,
     "wins": 2,
     "team": "ferrari",
     "name": "Ferrari",
     "nationality": "Italian",
-    "podiums": 10,
+    "podiums": 11,
     "poles": 0,
     "dnfs": 4,
-    "avg_finish": 4.0714,
+    "avg_finish": 4.0667,
     "best": 1,
     "drivers": [
      "hamilton",
@@ -7891,7 +8331,7 @@
    },
    {
     "pos": 3,
-    "points": 317.0,
+    "points": 339.0,
     "wins": 2,
     "team": "mclaren",
     "name": "McLaren",
@@ -7899,7 +8339,7 @@
     "podiums": 7,
     "poles": 3,
     "dnfs": 7,
-    "avg_finish": 5.36,
+    "avg_finish": 5.2963,
     "best": 1,
     "drivers": [
      "norris",
@@ -7908,15 +8348,15 @@
    },
    {
     "pos": 4,
-    "points": 306.0,
-    "wins": 1,
+    "points": 332.0,
+    "wins": 2,
     "team": "red_bull",
     "name": "Red Bull",
     "nationality": "Austrian",
-    "podiums": 10,
+    "podiums": 11,
     "poles": 2,
     "dnfs": 6,
-    "avg_finish": 5.1154,
+    "avg_finish": 5.1429,
     "best": 1,
     "drivers": [
      "max_verstappen",
@@ -7926,7 +8366,7 @@
    },
    {
     "pos": 5,
-    "points": 94.0,
+    "points": 100.0,
     "wins": 0,
     "team": "rb",
     "name": "RB F1 Team",
@@ -7934,7 +8374,7 @@
     "podiums": 0,
     "poles": 0,
     "dnfs": 2,
-    "avg_finish": 9.4333,
+    "avg_finish": 9.5312,
     "best": 5,
     "drivers": [
      "arvid_lindblad",
@@ -7950,8 +8390,8 @@
     "nationality": "French",
     "podiums": 0,
     "poles": 1,
-    "dnfs": 3,
-    "avg_finish": 10.5172,
+    "dnfs": 4,
+    "avg_finish": 10.5333,
     "best": 6,
     "drivers": [
      "gasly",
@@ -7968,7 +8408,7 @@
     "podiums": 0,
     "poles": 0,
     "dnfs": 5,
-    "avg_finish": 12.6667,
+    "avg_finish": 12.6552,
     "best": 5,
     "drivers": [
      "bearman",
@@ -7977,19 +8417,19 @@
    },
    {
     "pos": 8,
-    "points": 19.0,
+    "points": 23.0,
     "wins": 0,
     "team": "audi",
     "name": "Audi",
     "nationality": "German",
     "podiums": 0,
     "poles": 0,
-    "dnfs": 5,
-    "avg_finish": 11.4815,
+    "dnfs": 6,
+    "avg_finish": 11.3571,
     "best": 8,
     "drivers": [
-     "bortoleto",
-     "hulkenberg"
+     "hulkenberg",
+     "bortoleto"
     ]
    },
    {
@@ -8001,8 +8441,8 @@
     "nationality": "British",
     "podiums": 0,
     "poles": 0,
-    "dnfs": 9,
-    "avg_finish": 14.1304,
+    "dnfs": 10,
+    "avg_finish": 14.125,
     "best": 8,
     "drivers": [
      "sainz",
@@ -8018,8 +8458,8 @@
     "nationality": "British",
     "podiums": 0,
     "poles": 0,
-    "dnfs": 16,
-    "avg_finish": 14.9375,
+    "dnfs": 17,
+    "avg_finish": 15.0,
     "best": 8,
     "drivers": [
      "alonso",
@@ -8036,7 +8476,7 @@
     "podiums": 0,
     "poles": 0,
     "dnfs": 13,
-    "avg_finish": 16.3158,
+    "avg_finish": 16.4762,
     "best": 13,
     "drivers": [
      "bottas",
@@ -8082,41 +8522,41 @@
     }
    },
    "2026": {
-    "races": 16,
+    "races": 17,
     "model": {
-     "winner_correct": 0.6875,
-     "podium_overlap": 0.6458,
-     "exact_podium": 0.0625,
-     "spearman": 0.672,
-     "mae_pos": 3.4602
+     "winner_correct": 0.7059,
+     "podium_overlap": 0.6667,
+     "exact_podium": 0.0588,
+     "spearman": 0.6852,
+     "mae_pos": 3.3904
     },
     "grid": {
-     "winner_correct": 0.6875,
-     "podium_overlap": 0.625,
-     "exact_podium": 0.0625,
-     "spearman": 0.6402,
-     "mae_pos": 3.5284
+     "winner_correct": 0.7059,
+     "podium_overlap": 0.6275,
+     "exact_podium": 0.0588,
+     "spearman": 0.6468,
+     "mae_pos": 3.4973
     }
    }
   },
   "calibration": [
    {
     "bin": "0–10%",
-    "predicted": 0.0091,
-    "actual": 0.0072,
-    "n": 1117
+    "predicted": 0.009,
+    "actual": 0.007,
+    "n": 1135
    },
    {
     "bin": "10–25%",
-    "predicted": 0.1628,
-    "actual": 0.1429,
-    "n": 91
+    "predicted": 0.1621,
+    "actual": 0.1398,
+    "n": 93
    },
    {
     "bin": "25–50%",
-    "predicted": 0.3428,
-    "actual": 0.3953,
-    "n": 86
+    "predicted": 0.3424,
+    "actual": 0.3977,
+    "n": 88
    },
    {
     "bin": "50–75%",
@@ -8135,52 +8575,52 @@
    {
     "feature": "quali_pos",
     "label": "Qualifying position",
-    "value": 0.4637
+    "value": 0.4629
    },
    {
     "feature": "grid",
     "label": "Starting grid slot",
-    "value": 0.2134
+    "value": 0.2126
    },
    {
     "feature": "quali_gap_pct",
     "label": "Gap to pole (%)",
-    "value": 0.0707
+    "value": 0.0675
    },
    {
     "feature": "drv_avg_points_5",
     "label": "Driver points (last 5)",
-    "value": 0.0602
+    "value": 0.0552
    },
    {
     "feature": "con_points_5",
     "label": "Team points (last 5)",
-    "value": 0.0338
+    "value": 0.0411
    },
    {
     "feature": "con_season_avg_finish",
     "label": "Team season avg finish",
-    "value": 0.0238
+    "value": 0.0255
    },
    {
     "feature": "con_avg_quali_5",
     "label": "Team quali pace (last 5)",
-    "value": 0.0227
+    "value": 0.0254
    },
    {
     "feature": "drv_circuit_avg_finish",
     "label": "Track history",
-    "value": 0.0177
+    "value": 0.0189
    },
    {
-    "feature": "drv_avg_gain_5",
-    "label": "Places gained on Sunday",
-    "value": 0.0139
+    "feature": "drv_champ_rank",
+    "label": "Championship position",
+    "value": 0.015
    },
    {
     "feature": "con_avg_finish_5",
     "label": "Team avg finish (last 5)",
-    "value": 0.0138
+    "value": 0.0139
    }
   ]
  }
