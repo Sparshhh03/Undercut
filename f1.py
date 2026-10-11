@@ -15,6 +15,7 @@ import pandas as pd
 from f1predict.data import load_qualifying, load_results, load_schedule
 from f1predict.features import build_features
 from f1predict.model import F1Predictor, race_metrics
+from f1predict.practice import practice_gap
 
 FIRST_SEASON = 2018
 CURRENT_SEASON = dt.date.today().year
@@ -116,9 +117,18 @@ def predict_race(season, rnd, results=None, quali=None):
     rid = season * 100 + rnd
     target = df[df["race_id"] == rid].copy()
     if target["quali_pos"].isna().all():
-        # No qualifying yet: estimate grid from each team's recent qualifying pace.
-        est = target["con_avg_quali_5"].fillna(target["con_avg_quali_5"].max()) + target["drv_avg_finish_5"].fillna(15) * 0.01
-        target["grid"] = target["quali_pos"] = est.rank(method="first")
+        # No qualifying yet: estimate the grid. Once a practice session has run, from practice pace
+        # (back-tested 2024-26: closer to the real grid and better predictions than team form);
+        # before that, or for anyone without a practice lap, from each team's recent qualifying pace.
+        form = (target["con_avg_quali_5"].fillna(target["con_avg_quali_5"].max())
+                + target["drv_avg_finish_5"].fillna(15) * 0.01).rank(method="first")
+        gap = practice_gap(season, rnd, target["code"])
+        if gap.notna().any():
+            est = gap.rank(method="first").where(gap.notna(), form + 100).rank(method="first")
+            source = "latest race lineup (qualifying not run yet; grid estimated from practice pace)"
+        else:
+            est = form
+        target["grid"] = target["quali_pos"] = est
 
     model = F1Predictor().fit(df[df["race_id"] < rid])
     out = model.predict(target)

@@ -136,7 +136,9 @@ def main():
             "round": nxt, "name": info["race_name"], "circuit": info["circuit_name"],
             "locality": info["locality"], "country": info["country"], "date": info["date"], "time": info["time"],
             "status": "upcoming",
-            "grid_source": "Qualifying result" if source == "qualifying" else "Estimated grid (qualifying not run yet)",
+            "grid_source": ("Qualifying result" if source == "qualifying"
+                            else "Estimated from practice pace (qualifying not run yet)" if "practice" in source
+                            else "Estimated grid (qualifying not run yet)"),
             "rows": race_rows(out, actual={}),
         })
 
