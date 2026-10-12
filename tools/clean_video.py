@@ -1,7 +1,7 @@
 """Remove the fixed sparkle watermark that Google Flow / Gemini adds to the bottom-right corner
 of generated videos, and re-encode as web-friendly H.264 (no audio).
 
-    python tools/clean_video.py "input.mp4" "output.mp4" ["reference.mp4"]
+    python tools/clean_video.py "input.mp4" "output.mp4" ["reference.mp4"] [fade seconds]
 
 If the clip doesn't end on fully black frames, pass a reference clip that does (any other Flow
 clip: the watermark is identical). Clips that don't fully fade out get their fade finished, so every
@@ -99,7 +99,7 @@ def fit_overlay(path, box, mask, strength):
     return slope, offset
 
 
-def clean(src_path, dst_path, ref_path=None):
+def clean(src_path, dst_path, ref_path=None, fade_s="0.5"):
     found = locate(src_path)
     if found is None:
         if not ref_path:
@@ -129,8 +129,9 @@ def clean(src_path, dst_path, ref_path=None):
     cap.set(cv2.CAP_PROP_POS_FRAMES, total - 1)
     ok, last = cap.read()
     cap.release()
-    # finish the fade if the clip doesn't reach black: darken the last half-second down to 0
-    fade_frames = int(fps * 0.5) if ok and last.mean() > 1 else 0
+    # finish the fade if the clip doesn't reach black: darken the last `fade_s` seconds down to 0
+    # (0.5 s by default; use 1 for a clip that ends on a bright close-up, like the other clips' dips)
+    fade_frames = int(fps * float(fade_s)) if ok and last.mean() > 1 else 0
     if fade_frames:
         print(f"clip ends at brightness {last.mean():.1f}; finishing the fade to black over {fade_frames} frames")
     writer = imageio_ffmpeg.write_frames(
@@ -152,6 +153,6 @@ def clean(src_path, dst_path, ref_path=None):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) not in (3, 4):
+    if len(sys.argv) not in (3, 4, 5):
         sys.exit(__doc__)
     clean(*sys.argv[1:])
