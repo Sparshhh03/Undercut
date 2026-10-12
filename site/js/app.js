@@ -55,6 +55,21 @@ document.addEventListener('pointermove', e => {
     }
   }
 }, { passive: true });
+// touch screens have no hover: a tap on anything with details shows them for a few seconds
+let tipTimer;
+document.addEventListener('pointerdown', e => {
+  if (e.pointerType === 'mouse') return;
+  const t = e.target.closest('[data-tip]');
+  clearTimeout(tipTimer);
+  if (!t) { tip.classList.remove('show'); return; }
+  tip.innerHTML = t.dataset.tip;
+  const r = t.getBoundingClientRect();
+  tip.style.left = Math.max(8, Math.min(r.left + r.width / 2 - tip.offsetWidth / 2, innerWidth - tip.offsetWidth - 8)) + 'px';
+  tip.style.top = Math.max(8, r.top - tip.offsetHeight - 10) + 'px';
+  tip.classList.add('show');
+  tipTimer = setTimeout(() => tip.classList.remove('show'), 2600);
+}, { passive: true });
+addEventListener('scroll', () => tip.classList.remove('show'), { passive: true });
 document.addEventListener('pointerout', e => {
   const w = e.target.closest?.('.tilt');
   if (w && !w.contains(e.relatedTarget)) { w.style.setProperty('--rx', '0deg'); w.style.setProperty('--ry', '0deg'); }
@@ -97,7 +112,7 @@ function renderCatalog() {
     nx && card('#race', 'flag', 'Next race prediction', `Who wins ${esc(short(nx.name))}, with the full predicted podium in 3D.`,
       `<span class="team-dot" style="--tc:${team(nx.rows[0].team)[1]}"></span>${esc(nx.rows[0].code)} tipped · ${pct(nx.rows[0].win)} to win`),
     card('#order', 'list', 'Full finishing order', 'All 22 drivers ranked, with win and podium chances and grid moves.', `${nx ? nx.rows.length : 22} drivers ranked`),
-    card('#teams', 'car', '3D garage', "Inspect the cars in 3D. Red Bull's 2026 livery is painted in full.", 'Drag to orbit any car'),
+    card('#garage', 'car', '3D garage', "Inspect the cars in 3D. Red Bull's 2026 livery is painted in full.", 'Drag to orbit any car'),
     card('#teams', 'trophy', 'Standings & team stats', 'Driver and constructor tables, every finish, wins, poles and retirements.',
       `<span class="team-dot" style="--tc:${team(leader.team)[1]}"></span>${esc(leader.code)} leads · ${leader.points} pts · ${esc(team(lead.team)[0])} top team`),
     card('#season', 'grid', 'Season scorecard', 'How every 2026 prediction played out, round by round.', `${mw} of ${t.length} winners called`),
@@ -203,7 +218,7 @@ function renderTower(r, first) {
     }
     return `<li class="trow${x.pred <= 3 ? ' top3' : ''}">
       <span class="pos">P${x.pred}</span>
-      <span class="who"><span class="team-dot" style="--tc:${tc}"></span><span class="who-txt"><b>${esc(x.code)}</b><span class="nm">${esc(x.name)}</span><span class="tm">${esc(tn)}</span></span></span>
+      <span class="who"><span class="team-dot" style="--tc:${tc}"></span><span class="who-txt"><b>${esc(x.code)}</b><span class="nm"><span class="fn">${esc(x.name.split(' ').slice(0, -1).join(' '))} </span>${esc(x.name.split(' ').slice(-1)[0])}</span><span class="tm">${esc(tn)}</span></span></span>
       <span class="gridcell num">${est ? 'Est. ' : ''}P${x.grid}<span class="mv ${mv > 0 ? 'up' : mv < 0 ? 'down' : 'same'}">${mvTxt}</span></span>
       <span class="barcell bc-w"><small><span class="mlabel">Win</span>${pct(x.win, 1)}</small><span class="bar" data-tip="${esc(x.code)} wins: ${pct(x.win, 1)}"><i style="--w:${(x.win * 100).toFixed(2)}%"></i></span></span>
       <span class="barcell bc-p"><small><span class="mlabel">Podium</span>${pct(x.podium, 1)}</small><span class="bar pod" data-tip="${esc(x.code)} on the podium: ${pct(x.podium, 1)}"><i style="--w:${(x.podium * 100).toFixed(2)}%"></i></span></span>

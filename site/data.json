@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-11T20:21+00:00",
+ "generated_at": "2026-10-12T12:36+00:00",
  "season": 2026,
  "next_round": 18,
  "races": [
@@ -6104,7 +6104,7 @@
     "name": "Liam Lawson",
     "number": "30",
     "nationality": "New Zealander",
-    "team": "red_bull",
+    "team": "rb",
     "finishes": [
      {
       "round": 1,
@@ -8360,8 +8360,7 @@
     "best": 1,
     "drivers": [
      "max_verstappen",
-     "hadjar",
-     "lawson"
+     "hadjar"
     ]
    },
    {
@@ -8377,6 +8376,7 @@
     "avg_finish": 9.5312,
     "best": 5,
     "drivers": [
+     "lawson",
      "arvid_lindblad",
      "tsunoda"
     ]

@@ -60,8 +60,12 @@ def standings_block(results, quali, season):
     names = res.drop_duplicates("round").set_index("round")["race_name"]
     poles_by_driver = q[q["quali_pos"] == 1].groupby("driver").size()
     poles_by_team = q[q["quali_pos"] == 1].groupby("constructor").size()
+    # A driver's current team is the one from their latest race: the standings API lists every team
+    # a driver raced for this season, not in date order (e.g. Lawson: rb -> red_bull -> rb).
+    latest_team = res.sort_values("round").groupby("driver")["constructor"].last()
 
     for d in drivers:
+        d["team"] = latest_team.get(d["driver"], d["team"])
         r = res[res["driver"] == d["driver"]].sort_values("round")
         d["finishes"] = [{"round": int(x["round"]), "pos": int(x["position"]), "grid": int(x["grid"]),
                           "dnf": not bool(x["finished"]), "status": x["status"], "points": float(x["points"])}

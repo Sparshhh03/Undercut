@@ -149,7 +149,7 @@
       <p class="src-note" id="stand-note"></p>
     </div>
 
-    <div class="garage">
+    <div class="garage" id="garage">
       <div class="stage window" id="garage-stage">
         <canvas id="garage-canvas" aria-label="3D model of the selected team's car. Drag to rotate."></canvas>
         <div class="stage-top"><span class="eyebrow">Garage</span><span class="stage-hint">Drag to orbit</span></div>
@@ -201,23 +201,23 @@
 
   <!-- METHOD -->
   <section id="method" aria-labelledby="method-h">
-    <div class="sec-head"><div><span class="eyebrow">Method</span><h2 id="method-h">How it works</h2><p>A four-stage pipeline that reruns after every qualifying session and race.</p></div></div>
+    <div class="sec-head"><div><span class="eyebrow">Method</span><h2 id="method-h">How it works</h2><p>A four-stage pipeline that reruns by itself after every practice session, qualifying and race.</p></div></div>
     <div class="steps">
-      <div class="step window tilt"><span class="n">01 · Collect</span><h3>Every result since 2018</h3><p>Race and qualifying results for every Grand Prix, from the Jolpica F1 database.</p></div>
+      <div class="step window tilt"><span class="n">01 · Collect</span><h3>Every result since 2018</h3><p>Race and qualifying results for every Grand Prix from the Jolpica F1 database, plus practice lap times from OpenF1.</p></div>
       <div class="step window tilt"><span class="n">02 · Engineer</span><h3>20 signals per driver</h3><p>Grid slot, gap to pole, recent form, team pace, retirement rate, track history and championship standing.</p></div>
       <div class="step window tilt"><span class="n">03 · Train</span><h3>Ranking + odds</h3><p>A LightGBM ranking model sets the order. Logistic models give win and podium odds. Recent seasons weigh more.</p></div>
       <div class="step window tilt"><span class="n">04 · Test</span><h3>No peeking</h3><p>Every past race is predicted using only earlier races, then scored against the grid-order baseline.</p></div>
     </div>
     <div class="fine window">
       <strong>Read the odds, not just the order.</strong>
-      <span>Crashes, safety cars, rain and strategy make F1 noisy. A 30% favourite loses most of the time. Before qualifying, the grid is estimated from team pace, so predictions sharpen after Saturday.</span>
+      <span>Crashes, safety cars, rain and strategy make F1 noisy. A 30% favourite loses most of the time. Before qualifying, the grid is estimated from practice lap times (or from team form before the first practice), so predictions sharpen once the real grid is set.</span>
     </div>
   </section>
 </main>
 
 <footer>
   <span id="updated">Data loading…</span>
-  <span>Results data: <a href="https://github.com/jolpica/jolpica-f1" target="_blank" rel="noopener">Jolpica F1</a>. Fan project, not affiliated with Formula 1 or any team. Team names and sponsor marks belong to their owners.</span>
+  <span>Results data: <a href="https://github.com/jolpica/jolpica-f1" target="_blank" rel="noopener">Jolpica F1</a> and <a href="https://openf1.org" target="_blank" rel="noopener">OpenF1</a>. Fan project, not affiliated with Formula 1 or any team. Team names and sponsor marks belong to their owners.</span>
 </footer>
 <div id="tip" role="tooltip"></div>
 

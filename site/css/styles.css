@@ -13,7 +13,7 @@
   --edge-hi: rgba(255, 255, 255, .28);
   --ink: #F4F5F8;
   --ink-2: rgba(244, 245, 248, .68);
-  --ink-3: rgba(244, 245, 248, .44);
+  --ink-3: rgba(244, 245, 248, .56); /* >= 4.5:1 on the dark glass, for small labels */
   --accent: #FF4B3A;
   --accent-ink: #FFFFFF;
   --gold: #FFC72C;
@@ -162,7 +162,7 @@ button, select { font: inherit; color: inherit; }
 }
 .intro h1 { font-size: clamp(2.2rem, 5.6vw, 4.6rem); font-weight: 600; max-width: 16ch; text-shadow: 0 4px 30px rgba(0, 0, 0, .5); }
 .intro h1 .typed { color: var(--ink); }
-.intro h1 .ghost { color: var(--ink-3); }
+.intro h1 .ghost { color: rgba(244, 245, 248, .44); } /* untyped part of the title stays dim on purpose */
 .caret { display: inline-block; width: .06em; height: .9em; margin-left: .04em; vertical-align: -.08em; background: var(--accent); animation: pulse 1s steps(1) infinite; }
 
 /* bottom bar: text left, buttons centre, current team right */
@@ -288,6 +288,7 @@ section { scroll-margin-top: 90px; min-width: 0; }
   .trow .gridcell .mv { display: inline; }
   .trow .bc-w { grid-area: w; } .trow .bc-p { grid-area: p; }
   .mlabel { display: inline; color: var(--ink-3); font-family: var(--f-body); margin-right: 6px; }
+  .who .fn { display: none; } /* phones: code + surname only, so names don't wrap */
 }
 
 /* ---------- teams & standings ---------- */
@@ -330,7 +331,7 @@ section { scroll-margin-top: 90px; min-width: 0; }
 
 .garage { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 20px; margin-top: 20px; }
 @media (max-width: 960px) { .garage { grid-template-columns: 1fr; } }
-.garage { align-items: start; }
+.garage { align-items: start; scroll-margin-top: 90px; }
 .garage .stage { min-height: 520px; position: sticky; top: 90px; }
 @media (max-width: 960px) { .garage .stage { position: relative; top: 0; min-height: 400px; } }
 .garage-info { padding: clamp(20px, 2.6vw, 28px); display: grid; gap: 18px; align-content: start; min-width: 0; }
