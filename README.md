@@ -12,7 +12,7 @@ The model ranks the whole grid and gives each driver a win and podium probabilit
 ## How it works
 
 1. **Collect:** race and qualifying results since 2018 from the [Jolpica F1 API](https://github.com/jolpica/jolpica-f1).
-2. **Engineer:** 20 leak-free features per driver: grid, gap to pole, recent form, team pace, DNF rate, track history, standings.
+2. **Engineer:** 20 leak-free features per driver: grid, gap to pole, recent form, team pace, DNF rate, track history, standings. A test (`tests/test_no_leakage.py`) checks this: scrambling a race's result never changes that race's features, only the next one's.
 3. **Train:** a LightGBM ranking model blended with logistic regression for the order; logistic models for calibrated win and podium odds. Recent seasons weigh more.
 4. **Test:** every past race is predicted using only earlier races.
 
@@ -35,6 +35,7 @@ site/              the website, deployed by Vercel
   models/          optional real .glb car models (see models/README.md)
   data.json        predictions, standings and stats written by export_site.py
 data/              cached API responses
+tests/             leakage tests (no feature may use the result it predicts)
 .github/workflows/ refresh-predictions.yml: scheduled auto-refresh (see below)
 vercel.json        tells Vercel to serve the site/ folder
 ```
@@ -47,6 +48,7 @@ python f1.py predict                           # next race
 python f1.py predict --season 2026 --round 10  # any race
 python f1.py evaluate                          # back-test (~3 min)
 python export_site.py                          # refresh the website data
+python -m unittest discover tests              # leakage tests (offline, ~1 s)
 python -m http.server 8765 --directory site    # view the site at http://localhost:8765
 ```
 
