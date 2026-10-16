@@ -1,6 +1,7 @@
 // Undercut: page logic. Loads data.json, renders every section, and boots the 3D scenes.
 // The 3D modules are imported lazily, so the page still works if WebGL or the CDN fails.
 import { createHeroVideo } from './hero-video.js';
+import { initCards } from './cards.js';
 const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const G = window.gsap && !RM ? window.gsap : null;
 if (window.gsap) gsap.ticker.lagSmoothing(0); // keep animations on real time
@@ -497,7 +498,9 @@ fetch('data.json').then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); r
   sel.addEventListener('change', () => selectRace(+sel.value));
   $('#prev').addEventListener('click', () => { const i = d.races.indexOf(current); if (i > 0) selectRace(d.races[i - 1].round); });
   $('#next').addEventListener('click', () => { const i = d.races.indexOf(current); if (i < d.races.length - 1) selectRace(d.races[i + 1].round); });
-  renderStandings(); renderSeason(); renderMetricTabs(); renderSeasonChart(false); renderCalibration(); renderImportance();
+  renderStandings();
+  initCards({ data: d, team, finChip, short, esc, G, RM });
+  renderSeason(); renderMetricTabs(); renderSeasonChart(false); renderCalibration(); renderImportance();
   const fromHash = /^#r(\d+)$/.exec(location.hash);
   const start = (fromHash && d.races.find(r => r.round === +fromHash[1])) || d.races.find(r => r.status === 'upcoming') || d.races.at(-1);
   selectRace(start.round, { first: true });

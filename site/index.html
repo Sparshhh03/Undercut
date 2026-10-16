@@ -13,8 +13,9 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23050608'/%3E%3Cpath d='M6 20h12l-3 4H3z' fill='%23FF4B3A'/%3E%3Cpath d='M14 8h15l-3 4H11z' fill='%23F4F5F8'/%3E%3Cpath d='M10 14h12l-3 4H7z' fill='%23F4F5F8' opacity='.55'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Archivo+Black&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Archivo+Black&family=Saira+Condensed:wght@600;700;800&display=swap">
 <link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/cards.css">
 <script type="importmap">
 { "imports": {
   "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
@@ -31,7 +32,8 @@
   </a>
   <a class="link keep" href="#race">Race</a>
   <a class="link" href="#order">Order</a>
-  <a class="link keep" href="#teams">Teams</a>
+  <a class="link keep" href="#drivers">Drivers</a>
+  <a class="link" href="#teams">Teams</a>
   <a class="link" href="#season">Season</a>
   <a class="link" href="#accuracy">Accuracy</a>
   <a class="link" href="#method">Method</a>
@@ -129,6 +131,32 @@
     </div>
   </section>
 
+  <!-- DRIVERS -->
+  <section id="drivers" aria-labelledby="drivers-h">
+    <div class="sec-head">
+      <div><h2 id="drivers-h">Every driver, rated</h2><p>Each card turns a driver's season into six ratings from 40 to 99, built from the same race results the model learns from. Open a card to see where the numbers come from.</p></div>
+      <div class="card-tools">
+        <div class="segmented" role="group" aria-label="Sort cards" id="card-sort">
+          <button data-sort="rating" aria-pressed="true">Rating</button>
+          <button data-sort="standings" aria-pressed="false">Championship</button>
+        </div>
+      </div>
+    </div>
+    <div class="card-grid" id="card-grid"></div>
+    <details class="card-how">
+      <summary>How the ratings work</summary>
+      <dl>
+        <dt>QUA</dt><dd>Qualifying: average qualifying position.</dd>
+        <dt>PAC</dt><dd>Pace: average finishing position in races the driver finished.</dd>
+        <dt>RAC</dt><dd>Racecraft: places gained or kept from the grid, as a share of what was possible.</dd>
+        <dt>CON</dt><dd>Consistency: how often the driver finishes, and how little the results jump around.</dd>
+        <dt>FRM</dt><dd>Form: points per race over the last five Grands Prix.</dd>
+        <dt>H2H</dt><dd>Vs teammate: share of qualifying and race head-to-heads won against the driver in the same car.</dd>
+      </dl>
+      <p>Each stat is rescaled so the best driver on the grid gets about 97 and the slowest about 40. The overall rating weights pace and qualifying highest. Because two stats compare drivers with their teammates, a great driver in a slow car still rates well. Gold is 80 and up, silver 70 to 79, bronze below 70. Drivers with fewer than three starts this season have no card.</p>
+    </details>
+  </section>
+
   <!-- TEAMS -->
   <section id="teams" aria-labelledby="teams-h">
     <div class="sec-head">
@@ -219,6 +247,21 @@
   <span id="updated">Data loading…</span>
   <span>Results data: <a href="https://github.com/jolpica/jolpica-f1" target="_blank" rel="noopener">Jolpica F1</a> and <a href="https://openf1.org" target="_blank" rel="noopener">OpenF1</a>. Fan project, not affiliated with Formula 1 or any team. Team names and sponsor marks belong to their owners.</span>
 </footer>
+<dialog class="reveal" id="card-reveal" aria-labelledby="rv-title">
+  <div class="rv-beam"></div>
+  <div class="rv-flash"></div>
+  <div class="rv-beats" aria-hidden="true"><span class="rv-beat"></span><span class="rv-beat"></span><span class="rv-beat"></span></div>
+  <div class="rv-tools">
+    <button class="pill-btn icon-btn rv-prev" aria-label="Previous driver"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <button class="pill-btn icon-btn rv-next" aria-label="Next driver"><svg width="16" height="16" viewBox="0 0 16 16"><path d="m6 3 5 5-5 5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <button class="pill-btn icon-btn rv-close" aria-label="Close card"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button>
+  </div>
+  <div class="rv-stage">
+    <div class="rv-card"></div>
+    <div class="rv-panel"></div>
+  </div>
+  <p class="rv-skip">Click or press any key to skip</p>
+</dialog>
 <div id="tip" role="tooltip"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
