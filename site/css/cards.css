@@ -67,6 +67,7 @@
 .dc-bgimg { position: absolute; inset: 0; background: center top / cover no-repeat; }
 /* with a driver photo the driver is the main image, and the helmet moves under the rating like a badge */
 .dcard.has-bg .dc-helmet.photo { left: 6cqi; right: auto; top: 47cqi; width: 24cqi; height: 26cqi; }
+.dcard.has-bg .dc-helmet:not(.photo) { left: 3cqi; right: auto; top: 47cqi; width: 30cqi; }   /* drawn helmet as the badge */
 .dc-bgimg::after {
   content: ""; position: absolute; inset: 0;
   background:
