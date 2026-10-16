@@ -3,7 +3,8 @@ backdrop, framed exactly like the Verstappen card (same head size and position),
 
     python tools/driver_card_bg.py FIGURE BACKDROP OUT HEAD_TOP CHIN FACE_X [BACKDROP_BOX]
 
-FIGURE        photo of the driver (plain light backdrop, or any backdrop if the driver fills the middle)
+FIGURE        photo of the driver: flat light backdrop, pale textured backdrop, or any backdrop if the
+              driver fills the middle
 BACKDROP      team backdrop image, e.g. the Ferrari shield
 HEAD_TOP CHIN FACE_X   in FIGURE pixels: top of the hair, bottom of the chin, centre of the face
 BACKDROP_BOX  optional "x0,y0,x1,y1" part of the backdrop to use (default: the Ferrari framing below)
@@ -24,13 +25,39 @@ HEAD, HEAD_Y, FACE_DX = 201, 60, 43
 FERRARI_BOX = (402, 590, 1118, 1590)
 
 
-def figure_alpha(im):
+def figure_alpha(im, head=None):
     h, w = im.shape[:2]
     f = im.astype(np.float32)
     edge = np.r_[f[0], f[-1], f[:, 0], f[:, -1]]
     light = edge.mean() > 200
+    busy = light and edge.std(0).max() > 6   # pale but textured backdrop (feathers, a faint logo...)
     k = max(5, (min(h, w) // 60) | 1)
-    if light:
+    bright, colour = f.mean(2), f.max(2) - f.min(2)
+    if busy:
+        # seed the driver from what the backdrop isn't: saturated (suit, skin) or dark (hair, shoes)
+        pale = (bright > 175) & (colour < 30)
+        seed = cv2.morphologyEx(((colour > 55) | (bright < 95)).astype(np.uint8), cv2.MORPH_OPEN, np.ones((5, 5), np.uint8))
+        n, lab, st, cen = cv2.connectedComponentsWithStats(seed)
+        core = np.isin(lab, [i for i in range(1, n) if st[i, cv2.CC_STAT_AREA] > h * w * 0.002
+                             and 0.15 * w < cen[i][0] < 0.85 * w]).astype(np.uint8)
+        ell = lambda r: cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (r, r))
+        near, far = cv2.dilate(core, ell(41)).astype(bool), ~cv2.dilate(core, ell(121)).astype(bool)
+        gc = np.full((h, w), cv2.GC_PR_BGD, np.uint8)
+        gc[near & ~pale] = cv2.GC_PR_FGD
+        gc[far] = cv2.GC_BGD
+        gc[cv2.erode(core, ell(9)).astype(bool)] = cv2.GC_FGD
+        if head:   # the white race-suit collar sits just under the chin: never let it count as backdrop
+            top, chin, fx = head
+            hh = chin - top
+            collar = np.array([[fx - .22 * hh, chin - .12 * hh], [fx + .22 * hh, chin - .12 * hh],
+                               [fx + .40 * hh, chin + .28 * hh], [fx - .24 * hh, chin + .28 * hh]], np.int32)
+            cmask = np.zeros((h, w), np.uint8)
+            cv2.fillPoly(cmask, [collar], 1)
+            gc[cmask.astype(bool)] = cv2.GC_FGD
+        cv2.grabCut(im, gc, None, np.zeros((1, 65)), np.zeros((1, 65)), 6, cv2.GC_INIT_WITH_MASK)
+        cand = pale.astype(np.uint8)
+        bgc = np.median(f[pale & near], 0)
+    elif light:
         bgc = np.median(edge, 0)
         cand = (np.abs(f - bgc).max(2) < 10).astype(np.uint8)
         n, lab = cv2.connectedComponents(cand)
@@ -51,7 +78,10 @@ def figure_alpha(im):
     cnts, _ = cv2.findContours(fg, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
     fill = np.zeros_like(fg)
     cv2.drawContours(fill, cnts, -1, 1, -1)
-    if light:   # enclosed gaps (between an arm and the body) that show the backdrop stay transparent:
+    if busy:    # enclosed gaps showing the pale backdrop stay transparent
+        n2, lab2, st2, _ = cv2.connectedComponentsWithStats(((fill == 1) & (fg == 0) & (cand == 1)).astype(np.uint8))
+        fill[np.isin(lab2, [i for i in range(1, n2) if st2[i, cv2.CC_STAT_AREA] >= 300])] = 0
+    elif light:   # enclosed gaps (between an arm and the body) that show the backdrop stay transparent:
         # patches of the exact backdrop colour bigger than a speck (white suit parts are a few shades off)
         exact = (np.abs(f - bgc).max(2) < 4).astype(np.uint8)
         n2, lab2, st2, _ = cv2.connectedComponentsWithStats(exact)
@@ -64,7 +94,7 @@ def figure_alpha(im):
 
 def build(figure, backdrop, out, head_top, chin, face_x, box=FERRARI_BOX):
     im = cv2.imread(figure)
-    alpha, bgc = figure_alpha(im)
+    alpha, bgc = figure_alpha(im, (head_top, chin, face_x))
     fgc = im.astype(np.float32)
     if bgc is not None:   # take the light backdrop's colour out of the semi-transparent edge pixels
         a = np.clip(alpha, 0.05, 1)[..., None]
