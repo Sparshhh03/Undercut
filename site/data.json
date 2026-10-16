@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-12T12:36+00:00",
+ "generated_at": "2026-10-16T18:59+00:00",
  "season": 2026,
  "next_round": 18,
  "races": [
@@ -5039,7 +5039,27 @@
     "podiums": 14,
     "poles": 6,
     "dnfs": 1,
-    "best": 1
+    "best": 1,
+    "card": {
+     "ovr": 93,
+     "tier": "gold",
+     "stats": {
+      "QUA": 97,
+      "PAC": 97,
+      "RAC": 91,
+      "CON": 74,
+      "FRM": 92,
+      "H2H": 82
+     },
+     "raw": {
+      "avg_quali": 3.4,
+      "avg_finish": 2.7,
+      "places_gained": 1.6,
+      "finish_rate": 0.94,
+      "points_last5": 18.6,
+      "h2h": 0.65
+     }
+    }
    },
    {
     "pos": 2,
@@ -5193,7 +5213,27 @@
     "podiums": 8,
     "poles": 5,
     "dnfs": 3,
-    "best": 1
+    "best": 1,
+    "card": {
+     "ovr": 84,
+     "tier": "gold",
+     "stats": {
+      "QUA": 97,
+      "PAC": 92,
+      "RAC": 52,
+      "CON": 67,
+      "FRM": 71,
+      "H2H": 56
+     },
+     "raw": {
+      "avg_quali": 3.5,
+      "avg_finish": 3.9,
+      "places_gained": 0.2,
+      "finish_rate": 0.82,
+      "points_last5": 11.0,
+      "h2h": 0.35
+     }
+    }
    },
    {
     "pos": 3,
@@ -5347,7 +5387,27 @@
     "podiums": 6,
     "poles": 0,
     "dnfs": 1,
-    "best": 1
+    "best": 1,
+    "card": {
+     "ovr": 87,
+     "tier": "gold",
+     "stats": {
+      "QUA": 94,
+      "PAC": 91,
+      "RAC": 67,
+      "CON": 97,
+      "FRM": 62,
+      "H2H": 69
+     },
+     "raw": {
+      "avg_quali": 4.2,
+      "avg_finish": 4.1,
+      "places_gained": 0.1,
+      "finish_rate": 0.94,
+      "points_last5": 7.8,
+      "h2h": 0.5
+     }
+    }
    },
    {
     "pos": 4,
@@ -5501,7 +5561,27 @@
     "podiums": 9,
     "poles": 2,
     "dnfs": 4,
-    "best": 1
+    "best": 1,
+    "card": {
+     "ovr": 94,
+     "tier": "gold",
+     "stats": {
+      "QUA": 91,
+      "PAC": 95,
+      "RAC": 97,
+      "CON": 79,
+      "FRM": 97,
+      "H2H": 95
+     },
+     "raw": {
+      "avg_quali": 5.0,
+      "avg_finish": 3.2,
+      "places_gained": 2.4,
+      "finish_rate": 0.76,
+      "points_last5": 20.2,
+      "h2h": 0.79
+     }
+    }
    },
    {
     "pos": 5,
@@ -5655,7 +5735,27 @@
     "podiums": 5,
     "poles": 0,
     "dnfs": 3,
-    "best": 1
+    "best": 1,
+    "card": {
+     "ovr": 87,
+     "tier": "gold",
+     "stats": {
+      "QUA": 94,
+      "PAC": 92,
+      "RAC": 68,
+      "CON": 84,
+      "FRM": 70,
+      "H2H": 69
+     },
+     "raw": {
+      "avg_quali": 4.3,
+      "avg_finish": 4.0,
+      "places_gained": -0.3,
+      "finish_rate": 0.82,
+      "points_last5": 10.8,
+      "h2h": 0.5
+     }
+    }
    },
    {
     "pos": 6,
@@ -5809,7 +5909,27 @@
     "podiums": 5,
     "poles": 3,
     "dnfs": 4,
-    "best": 1
+    "best": 1,
+    "card": {
+     "ovr": 86,
+     "tier": "gold",
+     "stats": {
+      "QUA": 93,
+      "PAC": 91,
+      "RAC": 70,
+      "CON": 75,
+      "FRM": 63,
+      "H2H": 77
+     },
+     "raw": {
+      "avg_quali": 4.6,
+      "avg_finish": 4.2,
+      "places_gained": 0.8,
+      "finish_rate": 0.76,
+      "points_last5": 8.2,
+      "h2h": 0.59
+     }
+    }
    },
    {
     "pos": 7,
@@ -5963,7 +6083,27 @@
     "podiums": 2,
     "poles": 0,
     "dnfs": 3,
-    "best": 2
+    "best": 2,
+    "card": {
+     "ovr": 80,
+     "tier": "gold",
+     "stats": {
+      "QUA": 89,
+      "PAC": 83,
+      "RAC": 60,
+      "CON": 68,
+      "FRM": 58,
+      "H2H": 62
+     },
+     "raw": {
+      "avg_quali": 5.6,
+      "avg_finish": 6.3,
+      "places_gained": -0.5,
+      "finish_rate": 0.82,
+      "points_last5": 6.4,
+      "h2h": 0.41
+     }
+    }
    },
    {
     "pos": 8,
@@ -6093,7 +6233,27 @@
     "podiums": 2,
     "poles": 0,
     "dnfs": 2,
-    "best": 3
+    "best": 3,
+    "card": {
+     "ovr": 80,
+     "tier": "gold",
+     "stats": {
+      "QUA": 79,
+      "PAC": 83,
+      "RAC": 82,
+      "CON": 78,
+      "FRM": 64,
+      "H2H": 45
+     },
+     "raw": {
+      "avg_quali": 8.6,
+      "avg_finish": 6.2,
+      "places_gained": 3.0,
+      "finish_rate": 0.86,
+      "points_last5": 8.7,
+      "h2h": 0.22
+     }
+    }
    },
    {
     "pos": 9,
@@ -6247,7 +6407,27 @@
     "podiums": 0,
     "poles": 0,
     "dnfs": 1,
-    "best": 5
+    "best": 5,
+    "card": {
+     "ovr": 79,
+     "tier": "silver",
+     "stats": {
+      "QUA": 73,
+      "PAC": 74,
+      "RAC": 72,
+      "CON": 84,
+      "FRM": 51,
+      "H2H": 77
+     },
+     "raw": {
+      "avg_quali": 10.6,
+      "avg_finish": 8.6,
+      "places_gained": 2.2,
+      "finish_rate": 0.94,
+      "points_last5": 4.0,
+      "h2h": 0.59
+     }
+    }
    },
    {
     "pos": 10,
@@ -6401,7 +6581,27 @@
     "podiums": 0,
     "poles": 1,
     "dnfs": 2,
-    "best": 6
+    "best": 6,
+    "card": {
+     "ovr": 76,
+     "tier": "silver",
+     "stats": {
+      "QUA": 74,
+      "PAC": 69,
+      "RAC": 51,
+      "CON": 78,
+      "FRM": 43,
+      "H2H": 85
+     },
+     "raw": {
+      "avg_quali": 10.1,
+      "avg_finish": 9.8,
+      "places_gained": 0.5,
+      "finish_rate": 0.88,
+      "points_last5": 1.2,
+      "h2h": 0.68
+     }
+    }
    },
    {
     "pos": 11,
@@ -6555,7 +6755,27 @@
     "podiums": 0,
     "poles": 0,
     "dnfs": 1,
-    "best": 6
+    "best": 6,
+    "card": {
+     "ovr": 75,
+     "tier": "silver",
+     "stats": {
+      "QUA": 70,
+      "PAC": 69,
+      "RAC": 58,
+      "CON": 84,
+      "FRM": 47,
+      "H2H": 62
+     },
+     "raw": {
+      "avg_quali": 11.3,
+      "avg_finish": 10.0,
+      "places_gained": 1.6,
+      "finish_rate": 0.94,
+      "points_last5": 2.6,
+      "h2h": 0.41
+     }
+    }
    },
    {
     "pos": 12,
@@ -6709,7 +6929,27 @@
     "podiums": 0,
     "poles": 0,
     "dnfs": 2,
-    "best": 6
+    "best": 6,
+    "card": {
+     "ovr": 71,
+     "tier": "silver",
+     "stats": {
+      "QUA": 65,
+      "PAC": 64,
+      "RAC": 61,
+      "CON": 72,
+      "FRM": 45,
+      "H2H": 54
+     },
+     "raw": {
+      "avg_quali": 13.0,
+      "avg_finish": 11.3,
+      "places_gained": 1.9,
+      "finish_rate": 0.88,
+      "points_last5": 1.6,
+      "h2h": 0.32
+     }
+    }
    },
    {
     "pos": 13,
@@ -6863,7 +7103,27 @@
     "podiums": 0,
     "poles": 0,
     "dnfs": 4,
-    "best": 5
+    "best": 5,
+    "card": {
+     "ovr": 70,
+     "tier": "silver",
+     "stats": {
+      "QUA": 59,
+      "PAC": 60,
+      "RAC": 54,
+      "CON": 57,
+      "FRM": 41,
+      "H2H": 84
+     },
+     "raw": {
+      "avg_quali": 14.7,
+      "avg_finish": 12.2,
+      "places_gained": 1.5,
+      "finish_rate": 0.76,
+      "points_last5": 0.4,
+      "h2h": 0.67
+     }
+    }
    },
    {
     "pos": 14,
@@ -7017,7 +7277,27 @@
     "podiums": 0,
     "poles": 0,
     "dnfs": 4,
-    "best": 8
+    "best": 8,
+    "card": {
+     "ovr": 74,
+     "tier": "silver",
+     "stats": {
+      "QUA": 66,
+      "PAC": 65,
+      "RAC": 60,
+      "CON": 84,
+      "FRM": 43,
+      "H2H": 69
+     },
+     "raw": {
+      "avg_quali": 12.5,
+      "avg_finish": 10.8,
+      "places_gained": 1.7,
+      "finish_rate": 0.76,
+      "points_last5": 1.0,
+      "h2h": 0.5
+     }
+    }
    },
    {
     "pos": 15,
@@ -7171,7 +7451,27 @@
     "podiums": 0,
     "poles": 0,
     "dnfs": 2,
-    "best": 8
+    "best": 8,
+    "card": {
+     "ovr": 71,
+     "tier": "silver",
+     "stats": {
+      "QUA": 65,
+      "PAC": 62,
+      "RAC": 44,
+      "CON": 81,
+      "FRM": 40,
+      "H2H": 69
+     },
+     "raw": {
+      "avg_quali": 12.8,
+      "avg_finish": 11.8,
+      "places_gained": 0.5,
+      "finish_rate": 0.88,
+      "points_last5": 0.0,
+      "h2h": 0.5
+     }
+    }
    },
    {
     "pos": 16,
@@ -7325,7 +7625,27 @@
     "podiums": 0,
     "poles": 0,
     "dnfs": 1,
-    "best": 8
+    "best": 8,
+    "card": {
+     "ovr": 69,
+     "tier": "bronze",
+     "stats": {
+      "QUA": 57,
+      "PAC": 57,
+      "RAC": 54,
+      "CON": 84,
+      "FRM": 42,
+      "H2H": 54
+     },
+     "raw": {
+      "avg_quali": 15.2,
+      "avg_finish": 13.1,
+      "places_gained": 1.6,
+      "finish_rate": 0.94,
+      "points_last5": 0.8,
+      "h2h": 0.33
+     }
+    }
    },
    {
     "pos": 17,
@@ -7479,7 +7799,27 @@
     "podiums": 0,
     "poles": 0,
     "dnfs": 6,
-    "best": 8
+    "best": 8,
+    "card": {
+     "ovr": 68,
+     "tier": "bronze",
+     "stats": {
+      "QUA": 45,
+      "PAC": 50,
+      "RAC": 75,
+      "CON": 46,
+      "FRM": 42,
+      "H2H": 97
+     },
+     "raw": {
+      "avg_quali": 18.9,
+      "avg_finish": 14.7,
+      "places_gained": 4.0,
+      "finish_rate": 0.65,
+      "points_last5": 0.8,
+      "h2h": 0.82
+     }
+    }
    },
    {
     "pos": 18,
@@ -7633,7 +7973,27 @@
     "podiums": 0,
     "poles": 0,
     "dnfs": 3,
-    "best": 9
+    "best": 9,
+    "card": {
+     "ovr": 71,
+     "tier": "silver",
+     "stats": {
+      "QUA": 58,
+      "PAC": 55,
+      "RAC": 57,
+      "CON": 68,
+      "FRM": 41,
+      "H2H": 89
+     },
+     "raw": {
+      "avg_quali": 14.9,
+      "avg_finish": 13.6,
+      "places_gained": 2.1,
+      "finish_rate": 0.82,
+      "points_last5": 0.2,
+      "h2h": 0.73
+     }
+    }
    },
    {
     "pos": 19,
@@ -7787,7 +8147,27 @@
     "podiums": 0,
     "poles": 0,
     "dnfs": 7,
-    "best": 8
+    "best": 8,
+    "card": {
+     "ovr": 62,
+     "tier": "bronze",
+     "stats": {
+      "QUA": 52,
+      "PAC": 49,
+      "RAC": 51,
+      "CON": 44,
+      "FRM": 40,
+      "H2H": 49
+     },
+     "raw": {
+      "avg_quali": 16.6,
+      "avg_finish": 14.9,
+      "places_gained": 1.5,
+      "finish_rate": 0.59,
+      "points_last5": 0.0,
+      "h2h": 0.27
+     }
+    }
    },
    {
     "pos": 20,
@@ -7829,7 +8209,27 @@
     "podiums": 0,
     "poles": 0,
     "dnfs": 0,
-    "best": 10
+    "best": 10,
+    "card": {
+     "ovr": 70,
+     "tier": "silver",
+     "stats": {
+      "QUA": 59,
+      "PAC": 62,
+      "RAC": 67,
+      "CON": 96,
+      "FRM": 41,
+      "H2H": 40
+     },
+     "raw": {
+      "avg_quali": 14.7,
+      "avg_finish": 11.7,
+      "places_gained": 2.3,
+      "finish_rate": 1.0,
+      "points_last5": 0.5,
+      "h2h": 0.17
+     }
+    }
    },
    {
     "pos": 21,
@@ -7983,7 +8383,27 @@
     "podiums": 0,
     "poles": 0,
     "dnfs": 11,
-    "best": 12
+    "best": 12,
+    "card": {
+     "ovr": 60,
+     "tier": "bronze",
+     "stats": {
+      "QUA": 40,
+      "PAC": 47,
+      "RAC": 73,
+      "CON": 40,
+      "FRM": 40,
+      "H2H": 42
+     },
+     "raw": {
+      "avg_quali": 20.3,
+      "avg_finish": 15.5,
+      "places_gained": 4.2,
+      "finish_rate": 0.35,
+      "points_last5": 0.0,
+      "h2h": 0.18
+     }
+    }
    },
    {
     "pos": 22,
@@ -8137,7 +8557,27 @@
     "podiums": 0,
     "poles": 0,
     "dnfs": 8,
-    "best": 13
+    "best": 13,
+    "card": {
+     "ovr": 60,
+     "tier": "bronze",
+     "stats": {
+      "QUA": 41,
+      "PAC": 40,
+      "RAC": 40,
+      "CON": 62,
+      "FRM": 40,
+      "H2H": 56
+     },
+     "raw": {
+      "avg_quali": 20.1,
+      "avg_finish": 17.3,
+      "places_gained": 1.2,
+      "finish_rate": 0.53,
+      "points_last5": 0.0,
+      "h2h": 0.35
+     }
+    }
    },
    {
     "pos": 23,
@@ -8291,7 +8731,27 @@
     "podiums": 0,
     "poles": 0,
     "dnfs": 5,
-    "best": 14
+    "best": 14,
+    "card": {
+     "ovr": 67,
+     "tier": "bronze",
+     "stats": {
+      "QUA": 41,
+      "PAC": 46,
+      "RAC": 66,
+      "CON": 80,
+      "FRM": 40,
+      "H2H": 82
+     },
+     "raw": {
+      "avg_quali": 20.0,
+      "avg_finish": 15.8,
+      "places_gained": 3.4,
+      "finish_rate": 0.71,
+      "points_last5": 0.0,
+      "h2h": 0.65
+     }
+    }
    }
   ],
   "constructors": [

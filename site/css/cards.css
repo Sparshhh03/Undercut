@@ -1,0 +1,144 @@
+/* Undercut: driver cards + the walkout reveal.
+   Cards are chamfered like an F1 graphic, framed in tier metal (gold / silver / bronze), with a diagonal
+   band in team colour behind a stylised helmet. Sizes inside a card scale with its width (cqi units). */
+:root {
+  --f-card: "Saira Condensed", "Arial Narrow", var(--f-display);
+  --cut: 7cqi;
+}
+.dcard.gold   { --m1: #FBE9A6; --m2: #D9B444; --m3: #8A6A1C; --metal: #F2D57C; }
+.dcard.silver { --m1: #F5F7FA; --m2: #BAC2CB; --m3: #69717B; --metal: #E1E6EC; }
+.dcard.bronze { --m1: #F4C7A0; --m2: #C27D47; --m3: #6F3E1D; --metal: #E8AA7A; }
+
+.card-tools { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.card-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(min(176px, 44vw), 1fr));
+  gap: clamp(12px, 1.6vw, 20px);
+}
+
+.dcard {
+  container-type: inline-size;
+  position: relative; display: block; width: 100%; aspect-ratio: 63 / 88;
+  padding: 0; border: 0; background: none; cursor: pointer; color: var(--ink); text-align: left;
+  transition: transform .35s cubic-bezier(.2, .8, .2, 1), filter .35s;
+}
+/* the metal frame, cut at two corners; the face sits inset on top of it. (Container units only resolve
+   inside the card, so the cut shapes live on .dc-frame, not on the card itself.) */
+.dc-frame {
+  position: absolute; inset: 0; display: block;
+  clip-path: polygon(0 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% 100%, var(--cut) 100%, 0 calc(100% - var(--cut)));
+  background: linear-gradient(135deg, var(--m1), var(--m2) 28%, var(--m3) 52%, var(--m1) 74%, var(--m2));
+}
+.dc-face {
+  position: absolute; inset: 1.6cqi; display: block; overflow: hidden;
+  clip-path: polygon(0 0, calc(100% - var(--cut) + 1cqi) 0, 100% calc(var(--cut) - 1cqi), 100% 100%, calc(var(--cut) - 1cqi) 100%, 0 calc(100% - var(--cut) + 1cqi));
+  background:
+    repeating-linear-gradient(115deg, rgba(255, 255, 255, .025) 0 1px, transparent 1px 7px),
+    linear-gradient(165deg, #1A1E27 0%, #0C0F15 62%, #07090D 100%);
+}
+.dc-band {
+  position: absolute; inset: 0; opacity: .8;
+  background:
+    linear-gradient(118deg, transparent 47%, var(--team) 47.4%, var(--team) 58%, transparent 58.4%),
+    linear-gradient(118deg, transparent 60%, var(--metal) 60.2%, var(--metal) 61.2%, transparent 61.4%);
+  -webkit-mask: linear-gradient(180deg, #000 0%, #000 45%, transparent 66%);
+  mask: linear-gradient(180deg, #000 0%, #000 45%, transparent 66%);
+}
+.dc-face::after { /* foil sheen under the pointer */
+  content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .3s;
+  background: radial-gradient(60cqi circle at var(--sx, 50%) var(--sy, 30%), color-mix(in srgb, var(--metal) 30%, transparent), transparent 60%);
+  mix-blend-mode: screen;
+}
+.dc-top { position: absolute; left: 8cqi; top: 7cqi; display: flex; flex-direction: column; align-items: center; z-index: 2; }
+.dc-ovr {
+  font-family: var(--f-card); font-weight: 800; font-size: 22cqi; line-height: .82; letter-spacing: -.02em;
+  background: linear-gradient(180deg, var(--m1), var(--metal) 45%, var(--m2));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.dc-team, .dc-no { font-family: var(--f-card); font-weight: 700; font-size: 7.2cqi; line-height: 1.15; color: var(--metal); }
+.dc-team { margin-top: 2cqi; padding-top: 1.6cqi; border-top: .5cqi solid color-mix(in srgb, var(--metal) 60%, transparent); }
+.dc-no { color: var(--ink-2); }
+.dc-helmet { position: absolute; right: 1cqi; top: 10cqi; width: 76cqi; z-index: 1; filter: drop-shadow(0 4cqi 5cqi rgba(0, 0, 0, .6)); }
+.dc-helmet svg { display: block; width: 100%; height: auto; }
+.h-num { font-family: var(--f-card); font-weight: 800; font-size: 40px; }
+.dc-name {
+  position: absolute; left: 0; right: 0; top: 64%; text-align: center; z-index: 2;
+  font-family: var(--f-card); font-weight: 700; font-size: 12cqi; line-height: 1; letter-spacing: .02em; text-transform: uppercase;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 0 6cqi 2.4cqi;
+  border-bottom: .5cqi solid color-mix(in srgb, var(--metal) 45%, transparent); margin: 0 9cqi;
+}
+.dc-stats {
+  position: absolute; left: 9cqi; right: 9cqi; bottom: 7cqi; z-index: 2;
+  display: grid; grid-template-columns: 1fr 1fr; column-gap: 8cqi; row-gap: .6cqi;
+}
+.dc-stat { display: flex; align-items: baseline; gap: 2.4cqi; font-family: var(--f-card); line-height: 1.1; }
+.dc-stat b { font-weight: 700; font-size: 9cqi; min-width: 2ch; color: var(--ink); font-variant-numeric: tabular-nums; }
+.dc-stat i { font-style: normal; font-weight: 600; font-size: 7cqi; color: var(--metal); }
+
+@media (hover: hover) {
+  .card-grid .dcard:hover { transform: translateY(-4px); filter: drop-shadow(0 14px 22px rgba(0, 0, 0, .55)); }
+  .card-grid .dcard:hover .dc-face::after { opacity: 1; }
+}
+.dcard:focus-visible { outline: none; transform: translateY(-4px); filter: drop-shadow(0 0 0 #fff) drop-shadow(0 0 3px #fff); }
+
+details.card-how { margin-top: 22px; max-width: 76ch; color: var(--ink-2); }
+details.card-how summary { cursor: pointer; font-weight: 700; color: var(--ink); width: fit-content; }
+details.card-how dl { display: grid; grid-template-columns: max-content 1fr; gap: 6px 16px; margin: 14px 0 10px; }
+details.card-how dt { font-family: var(--f-card); font-weight: 700; color: var(--ink); }
+details.card-how dd { margin: 0; }
+
+/* ---------- reveal ---------- */
+.reveal {
+  width: 100vw; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: 0; border: 0;
+  background: transparent; color: var(--ink); overflow: hidden;
+}
+.reveal::backdrop { background: rgba(3, 4, 6, .9); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+.rv-stage {
+  position: relative; height: 100%; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  align-items: center; gap: clamp(20px, 4vw, 64px); padding: clamp(64px, 8vh, 96px) clamp(16px, 6vw, 96px) clamp(24px, 5vh, 56px);
+  max-width: 1280px; margin: 0 auto;
+}
+.rv-beam {
+  position: absolute; left: 25%; top: 0; bottom: 0; width: min(46vw, 560px); transform: translateX(-50%); transform-origin: 50% 0;
+  pointer-events: none; z-index: 0;
+  background:
+    radial-gradient(ellipse 45% 60% at 50% 58%, color-mix(in srgb, var(--team) 50%, transparent), transparent 70%),
+    linear-gradient(90deg, transparent, color-mix(in srgb, var(--team) 16%, transparent) 30%, color-mix(in srgb, var(--team) 16%, transparent) 70%, transparent);
+}
+.rv-flash { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle at 28% 52%, #fff, transparent 45%); opacity: 0; z-index: 3; }
+.rv-beats { position: absolute; inset: 0; display: grid; place-items: center; pointer-events: none; z-index: 4; }
+.rv-beat {
+  grid-area: 1 / 1; font-family: var(--f-card); font-weight: 800; font-size: clamp(3rem, 11vw, 9rem); line-height: 1;
+  text-transform: uppercase; opacity: 0; text-align: center; padding: 0 16px;
+  text-shadow: 0 0 40px color-mix(in srgb, var(--team) 70%, transparent);
+}
+.reveal:not(.walking) .rv-beat { visibility: hidden; }
+.rv-card { position: relative; z-index: 2; display: grid; place-items: center; perspective: 1400px; }
+.rv-card .dcard { width: min(360px, 34vw, 44dvh); cursor: default; transform-style: preserve-3d; filter: drop-shadow(0 30px 50px rgba(0, 0, 0, .7)); }
+.rv-panel { position: relative; z-index: 2; max-height: 100%; overflow: auto; padding-right: 6px; }
+.rv-name { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 700; }
+.rv-sub { margin-top: 6px; color: var(--ink-2); }
+.rv-facts { display: flex; flex-wrap: wrap; gap: 8px 22px; margin: 18px 0 20px; }
+.rv-facts div { display: flex; flex-direction: column; }
+.rv-facts dt { font-size: .8rem; color: var(--ink-3); font-weight: 600; }
+.rv-facts dd { margin: 0; font-family: var(--f-card); font-weight: 700; font-size: 1.6rem; line-height: 1.1; }
+.rv-stats { display: grid; gap: 10px; }
+.rv-stat { display: grid; grid-template-columns: 7.5rem 1fr 2.2rem; align-items: center; column-gap: 12px; }
+.rv-k { font-weight: 700; font-size: .92rem; }
+.rv-bar { height: 6px; border-radius: 6px; background: rgba(255, 255, 255, .08); overflow: hidden; }
+.rv-bar i { display: block; height: 100%; width: var(--v); border-radius: inherit; transform-origin: 0 50%; background: linear-gradient(90deg, color-mix(in srgb, var(--team) 60%, #fff 0%), var(--team)); }
+.rv-v { font-family: var(--f-card); font-size: 1.3rem; text-align: right; font-variant-numeric: tabular-nums; }
+.rv-why { grid-column: 2 / 4; font-size: .82rem; color: var(--ink-2); margin-top: 2px; }
+.rv-season-h { margin: 22px 0 8px; font-weight: 700; font-size: .92rem; }
+.rv-panel .strip { flex-wrap: wrap; row-gap: 4px; }
+.rv-tools { position: absolute; top: 16px; right: 16px; left: 16px; display: flex; justify-content: flex-end; gap: 8px; z-index: 5; }
+.reveal.walking .rv-panel, .reveal.walking .rv-tools .rv-prev, .reveal.walking .rv-tools .rv-next { visibility: hidden; }
+.rv-skip { position: absolute; bottom: 20px; left: 0; right: 0; text-align: center; color: var(--ink-3); font-size: .85rem; z-index: 5; }
+.reveal:not(.walking) .rv-skip { display: none; }
+
+@media (max-width: 760px) {
+  .rv-stage { grid-template-columns: 1fr; align-content: start; overflow: auto; height: 100%; }
+  .rv-beam { left: 50%; width: 90vw; }
+  .rv-flash { background: radial-gradient(circle at 50% 30%, #fff, transparent 45%); }
+  .rv-card .dcard { width: min(240px, 62vw); }
+  .rv-panel { overflow: visible; }
+}

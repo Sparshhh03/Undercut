@@ -13,6 +13,7 @@ import pandas as pd
 from f1 import CURRENT_SEASON, backtest, load_all, next_round, predict_race
 from f1predict.data import load_schedule, load_standings
 from f1predict.model import race_metrics
+from f1predict.ratings import driver_ratings
 
 OUT = Path(__file__).resolve().parent / "site" / "data.json"
 BACKTEST_SEASONS = [2024, 2025, CURRENT_SEASON]
@@ -63,6 +64,7 @@ def standings_block(results, quali, season):
     # A driver's current team is the one from their latest race: the standings API lists every team
     # a driver raced for this season, not in date order (e.g. Lawson: rb -> red_bull -> rb).
     latest_team = res.sort_values("round").groupby("driver")["constructor"].last()
+    cards = driver_ratings(results, quali, season)
 
     for d in drivers:
         d["team"] = latest_team.get(d["driver"], d["team"])
@@ -75,6 +77,7 @@ def standings_block(results, quali, season):
         d["poles"] = int(poles_by_driver.get(d["driver"], 0))
         d["dnfs"] = int((~r["finished"].astype(bool)).sum())
         d["best"] = int(r["position"].min()) if len(r) else None
+        d["card"] = cards.get(d["driver"])  # FUT-style ratings; None for stand-ins with few races
 
     for c in constructors:
         r = res[res["constructor"] == c["team"]]
