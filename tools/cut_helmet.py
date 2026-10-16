@@ -1,6 +1,10 @@
 """Cut a helmet out of a product photo (plain light backdrop) for the driver cards.
 
-    python tools/cut_helmet.py "photo.webp" site/media/helmets/<driver>.webp
+    python tools/cut_helmet.py "photo.webp" site/media/helmets/<driver>.webp [x0,y0,x1,y1]
+
+Already transparent photos (PNG/WebP with alpha) are used as they are (only the helmet is kept, not a
+separate floor shadow). For a busy backdrop, pass the box round the helmet shell (without visor tabs): the
+helmet-shaped outline fitted to it seeds GrabCut, and the cut never leaves that outline.
 
 The backdrop is found from the border inwards: on a flat backdrop, pixels within a few shades of its
 colour; on a gradient backdrop, light-to-mid grey, colourless, smooth pixels (this also catches the
@@ -23,11 +27,40 @@ WIDTH = 520   # helmet width in the output, px
 MARGIN = 8    # transparent margin round the helmet, px
 
 
-def cut(src, dst):
-    im = cv2.imread(src)
+def cut(src, dst, box=None):
+    im = cv2.imread(src, cv2.IMREAD_UNCHANGED)
     if im is None:
         sys.exit(f"Can't read {src}")
+    if im.ndim == 3 and im.shape[2] == 4 and (im[..., 3] < 250).mean() > 0.05:
+        a = (im[..., 3] > 200).astype(np.uint8)
+        n, lab, st, _ = cv2.connectedComponentsWithStats(a)
+        keep = (lab == 1 + np.argmax(st[1:, cv2.CC_STAT_AREA])).astype(np.uint8)
+        keep = cv2.dilate(keep, np.ones((5, 5), np.uint8))
+        return save(im[..., :3], im[..., 3].astype(np.float32) / 255 * keep, dst)
+    im = im[..., :3] if im.ndim == 3 else cv2.cvtColor(im, cv2.COLOR_GRAY2BGR)
     h, w = im.shape[:2]
+    if box:
+        # a front-view helmet is a rounded dome on top and squarer at the chin: a superellipse fitted to
+        # the box. Outside it (a little grown) is backdrop, well inside it is helmet, GrabCut decides the rim.
+        x0, y0, x1, y1 = box
+        cx, cy, rx, ry = (x0 + x1) / 2, (y0 + y1) / 2, (x1 - x0) / 2, (y1 - y0) / 2
+        yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
+        u, v = np.abs(xx - cx) / rx, (yy - cy) / ry
+        shape = u ** 2.2 + np.abs(v) ** np.where(v < 0, 2.2, 4.0)   # <= 1 inside the helmet
+        gc = np.full((h, w), cv2.GC_PR_FGD, np.uint8)
+        gc[shape > 1.0] = cv2.GC_PR_BGD
+        gc[shape > 1.12] = cv2.GC_BGD
+        gc[shape < 0.75] = cv2.GC_FGD
+        cv2.grabCut(im, gc, None, np.zeros((1, 65)), np.zeros((1, 65)), 8, cv2.GC_INIT_WITH_MASK)
+        fg = ((gc == cv2.GC_FGD) | (gc == cv2.GC_PR_FGD)).astype(np.uint8)
+        n, lab, st, _ = cv2.connectedComponentsWithStats(fg)
+        fg = (lab == 1 + np.argmax(st[1:, cv2.CC_STAT_AREA])).astype(np.uint8)
+        cnts, _ = cv2.findContours(fg, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+        fill = np.zeros_like(fg)
+        cv2.drawContours(fill, cnts, -1, 1, -1)
+        # never outside the grown shape, never a bite out of its inner part (dark logos near a dark wall)
+        fill = ((fill == 1) & (shape <= 1.08)) | (shape <= 0.97)
+        return save(im, cv2.GaussianBlur(fill.astype(np.float32), (0, 0), 0.8), dst)
     f = im.astype(np.float32)
     bright = f.mean(2)
     colour = f.max(2) - f.min(2)
@@ -68,7 +101,11 @@ def cut(src, dst):
     cv2.drawContours(fill, cnts, -1, 1, -1)
     alpha = cv2.GaussianBlur(fill.astype(np.float32), (0, 0), 0.8)
 
-    ys, xs = np.where(fill)
+    save(im, alpha, dst)
+
+
+def save(im, alpha, dst):
+    ys, xs = np.where(alpha > 0.5)
     x0, x1, y0, y1 = xs.min(), xs.max() + 1, ys.min(), ys.max() + 1
     rgba = np.dstack([cv2.cvtColor(im, cv2.COLOR_BGR2RGB), (alpha * 255).astype(np.uint8)])[y0:y1, x0:x1]
     scale = WIDTH / (x1 - x0)
@@ -85,6 +122,6 @@ def cut(src, dst):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 3:
+    if len(sys.argv) not in (3, 4):
         sys.exit(__doc__)
-    cut(sys.argv[1], sys.argv[2])
+    cut(sys.argv[1], sys.argv[2], tuple(int(v) for v in sys.argv[3].split(",")) if len(sys.argv) == 4 else None)

@@ -28,6 +28,8 @@ const STAT_INFO = {
 const HELMET_PHOTOS = {
   max_verstappen: 'media/helmets/verstappen.webp', antonelli: 'media/helmets/antonelli.webp',
   russell: 'media/helmets/russell.webp', leclerc: 'media/helmets/leclerc.webp', hamilton: 'media/helmets/hamilton.webp',
+  norris: 'media/helmets/norris.webp', piastri: 'media/helmets/piastri.webp', lawson: 'media/helmets/lawson.webp',
+  arvid_lindblad: 'media/helmets/lindblad.webp', sainz: 'media/helmets/sainz.webp', albon: 'media/helmets/albon.webp',
 };
 // Driver photos used as the card's background (the helmet then moves under the rating as a badge)
 const CARD_BG = {
