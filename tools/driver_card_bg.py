@@ -85,7 +85,8 @@ def figure_alpha(im, head=None):
         # patches of the exact backdrop colour bigger than a speck (white suit parts are a few shades off)
         exact = (np.abs(f - bgc).max(2) < 4).astype(np.uint8)
         n2, lab2, st2, _ = cv2.connectedComponentsWithStats(exact)
-        big = np.isin(lab2, [i for i in range(1, n2) if st2[i, cv2.CC_STAT_AREA] >= 40]).astype(np.uint8)
+        # gaps are big; white printed letters on the suit are small and must stay (Russell's PETRONAS)
+        big = np.isin(lab2, [i for i in range(1, n2) if st2[i, cv2.CC_STAT_AREA] >= h * w * 4e-5]).astype(np.uint8)
         big = cv2.dilate(big, np.ones((5, 5), np.uint8)).astype(bool)   # and their anti-aliased rims
         fill[big | ((fill == 1) & (fg == 0) & (cand == 1))] = 0
     alpha = cv2.GaussianBlur(fill.astype(np.float32), (0, 0), max(0.8, min(h, w) / 1500))
@@ -108,6 +109,11 @@ def refine_edges(f, fill, alpha, bgc, band):
     a = ((f - bgc) * d).sum(2) / np.maximum((d * d).sum(2), 1.0)
     # tighten the fade: some photos were already cut out once with a soft, slightly grey feather, which
     # would show as a light rim on a dark backdrop; squaring the low end pulls that rim in
+    # clearly coloured pixels (skin, suit colours) are solid, even if lighter than the nearby driver colour:
+    # a brightly lit cheek next to dark hair would otherwise turn see-through. Grey mixes of dark hair and
+    # a white backdrop have no colour, so their soft fade is kept.
+    chroma = f.max(2) - f.min(2)
+    a = np.maximum(a, np.clip((chroma - 18) / 22, 0, 1) * (np.abs(f - bgc).max(2) > 30))
     a = np.clip(a * 1.1, 0, 1) ** 1.8
     ok = ring & (den[..., 0] > 0.02) & ((d * d).sum(2) > 900)   # only where driver and backdrop differ clearly
     out = alpha.copy()
