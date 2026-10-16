@@ -24,6 +24,9 @@ const STAT_INFO = {
   H2H: ['Vs teammate', r => `Beat the teammate in ${Math.round(r.h2h * 100)}% of head-to-heads`],
 };
 
+// Real helmet photos (front view, background removed) for drivers who have one; the rest get the drawn helmet.
+const HELMET_PHOTOS = { max_verstappen: 'media/helmets/verstappen.webp' };
+
 const hash = s => [...s].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 7);
 
 function helmetSVG(d, teamId) {
@@ -76,7 +79,9 @@ function cardHTML(d, team, tag = 'button') {
         <span class="dc-team">${CODE[d.team] || d.team.slice(0, 3).toUpperCase()}</span>
         <span class="dc-no">${d.number || ''}</span>
       </span>
-      <span class="dc-helmet">${helmetSVG(d, d.team)}</span>
+      ${HELMET_PHOTOS[d.driver]
+        ? `<span class="dc-helmet photo"><img src="${HELMET_PHOTOS[d.driver]}" alt="" decoding="async"></span>`
+        : `<span class="dc-helmet">${helmetSVG(d, d.team)}</span>`}
       <span class="dc-name">${surname}</span>
       <span class="dc-stats">${stats}</span>
     </span></span>
@@ -155,7 +160,9 @@ export function initCards({ data, team, finChip, short, esc, G, RM }) {
     dlg.querySelector('.rv-next').disabled = i >= drivers.length - 1;
   }
 
+  let watchdog;
   function finish() {
+    clearTimeout(watchdog);
     if (tl) { tl.progress(1); tl.kill(); tl = null; }
     dlg.classList.remove('walking');
   }
@@ -169,13 +176,14 @@ export function initCards({ data, team, finChip, short, esc, G, RM }) {
     const card = dlg.querySelector('.rv-card .dcard');
     const beats = dlg.querySelectorAll('.rv-beat');
     tl = G.timeline({ onComplete: finish });
+    watchdog = setTimeout(finish, 5000);  // if the browser stalls animation frames, still end on the card
     tl.fromTo(dlg.querySelector('.rv-beam'), { scaleY: 0, opacity: 0 }, { scaleY: 1, opacity: 1, duration: 0.5, ease: 'power3.out' });
     beats.forEach((b, k) => {
       if (!b.textContent) return;
       tl.fromTo(b, { opacity: 0, y: 24, letterSpacing: '.3em' }, { opacity: 1, y: 0, letterSpacing: '0em', duration: 0.3, ease: 'power3.out' }, k ? '>' : '-=0.15')
         .to(b, { opacity: 0, y: -16, duration: 0.18, ease: 'power2.in' }, '+=0.3');
     });
-    tl.fromTo(card, { rotateY: 180, scale: 0.55, y: 60, opacity: 0 }, { rotateY: 0, scale: 1, y: 0, opacity: 1, duration: 0.7, ease: 'power3.out' })
+    tl.fromTo(card, { rotateY: 88, scale: 0.55, y: 60, opacity: 0 }, { rotateY: 0, scale: 1, y: 0, opacity: 1, duration: 0.7, ease: 'power3.out' })
       .fromTo(dlg.querySelector('.rv-flash'), { opacity: 0.85 }, { opacity: 0, duration: 0.6, ease: 'power2.out', immediateRender: false }, '-=0.35')
       .fromTo(dlg.querySelector('.rv-panel'), { opacity: 0, x: 24 }, { opacity: 1, x: 0, duration: 0.45, ease: 'power3.out' }, '-=0.3')
       .fromTo(dlg.querySelectorAll('.rv-bar i'), { scaleX: 0 }, { scaleX: 1, duration: 0.6, stagger: 0.05, ease: 'power3.out' }, '-=0.3');
