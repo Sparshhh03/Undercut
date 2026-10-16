@@ -32,6 +32,7 @@ const HELMET_PHOTOS = {
 // Driver photos used as the card's background (the helmet then moves under the rating as a badge)
 const CARD_BG = {
   max_verstappen: 'media/drivers/verstappen.webp', leclerc: 'media/drivers/leclerc.webp', hamilton: 'media/drivers/hamilton.webp',
+  russell: 'media/drivers/russell.webp', antonelli: 'media/drivers/antonelli.webp',
 };
 
 const hash = s => [...s].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 7);

@@ -89,7 +89,31 @@ def figure_alpha(im, head=None):
         big = cv2.dilate(big, np.ones((5, 5), np.uint8)).astype(bool)   # and their anti-aliased rims
         fill[big | ((fill == 1) & (fg == 0) & (cand == 1))] = 0
     alpha = cv2.GaussianBlur(fill.astype(np.float32), (0, 0), max(0.8, min(h, w) / 1500))
+    if bgc is not None:
+        alpha = refine_edges(f, fill, alpha, bgc, max(6, min(h, w) // 200))
     return alpha, bgc
+
+
+def refine_edges(f, fill, alpha, bgc, band):
+    """Soft photos fade from hair or skin into the backdrop over several pixels. In a band just inside
+    the outline, estimate how much of each pixel is driver and how much is backdrop (projecting its
+    colour between the backdrop colour and the nearby solid driver colour), so the fade becomes real
+    transparency instead of a light outline."""
+    inner = cv2.erode(fill, np.ones((2 * band + 1, 2 * band + 1), np.uint8)).astype(np.float32)
+    ring = (cv2.dilate(fill, np.ones((9, 9), np.uint8)) == 1) & (inner == 0)   # incl. the blurred rim just outside
+    sig = band * 1.5
+    den = cv2.GaussianBlur(inner, (0, 0), sig)[..., None]
+    local = cv2.GaussianBlur(f * inner[..., None], (0, 0), sig) / np.maximum(den, 1e-3)   # nearby solid colour
+    d = local - bgc
+    a = ((f - bgc) * d).sum(2) / np.maximum((d * d).sum(2), 1.0)
+    # tighten the fade: some photos were already cut out once with a soft, slightly grey feather, which
+    # would show as a light rim on a dark backdrop; squaring the low end pulls that rim in
+    a = np.clip(a * 1.1, 0, 1) ** 1.8
+    ok = ring & (den[..., 0] > 0.02) & ((d * d).sum(2) > 900)   # only where driver and backdrop differ clearly
+    out = alpha.copy()
+    out[ok] = a[ok]
+    out[ring & (np.abs(f - bgc).max(2) < 4)] = 0   # pure backdrop is never part of the driver
+    return out
 
 
 def build(figure, backdrop, out, head_top, chin, face_x, box=FERRARI_BOX):
