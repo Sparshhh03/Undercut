@@ -25,7 +25,12 @@ const STAT_INFO = {
 };
 
 // Real helmet photos (front view, background removed) for drivers who have one; the rest get the drawn helmet.
-const HELMET_PHOTOS = { max_verstappen: 'media/helmets/verstappen.webp' };
+const HELMET_PHOTOS = {
+  max_verstappen: 'media/helmets/verstappen.webp', antonelli: 'media/helmets/antonelli.webp',
+  russell: 'media/helmets/russell.webp', leclerc: 'media/helmets/leclerc.webp', hamilton: 'media/helmets/hamilton.webp',
+};
+// Driver photos used as the card's background (trial: Verstappen only)
+const CARD_BG = { max_verstappen: 'media/drivers/verstappen.webp' };
 
 const hash = s => [...s].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 7);
 
@@ -71,8 +76,10 @@ function cardHTML(d, team, tag = 'button') {
   const attrs = tag === 'button'
     ? `type="button" data-driver="${d.driver}" aria-label="${d.name}, ${teamName}, rated ${c.ovr}. Open card"`
     : 'aria-hidden="true"';
-  return `<${tag} class="dcard ${c.tier}" style="--team:${teamColor}" ${attrs}>
+  const bg = CARD_BG[d.driver];
+  return `<${tag} class="dcard ${c.tier}${bg ? ' has-bg' : ''}" style="--team:${teamColor}" ${attrs}>
     <span class="dc-frame"><span class="dc-face">
+      ${bg ? `<span class="dc-bgimg" style="background-image:url('${bg}')"></span>` : ''}
       <span class="dc-band"></span>
       <span class="dc-top">
         <span class="dc-ovr">${c.ovr}</span>
