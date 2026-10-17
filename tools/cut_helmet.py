@@ -1,6 +1,6 @@
 """Cut a helmet out of a product photo (plain light backdrop) for the driver cards.
 
-    python tools/cut_helmet.py "photo.webp" site/media/helmets/<driver>.webp [x0,y0,x1,y1]
+    python tools/cut_helmet.py "photo.webp" site/media/helmets/<driver>.webp [x0,y0,x1,y1] [--keep-white]
 
 Already transparent photos (PNG/WebP with alpha) are used as they are (only the helmet is kept, not a
 separate floor shadow). For a busy backdrop, pass the box round the helmet shell (without visor tabs): the
@@ -27,7 +27,7 @@ WIDTH = 520   # helmet width in the output, px
 MARGIN = 8    # transparent margin round the helmet, px
 
 
-def cut(src, dst, box=None):
+def cut(src, dst, box=None, keep_plain=False):
     im = cv2.imread(src, cv2.IMREAD_UNCHANGED)
     if im is None:
         sys.exit(f"Can't read {src}")
@@ -47,10 +47,19 @@ def cut(src, dst, box=None):
         yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
         u, v = np.abs(xx - cx) / rx, (yy - cy) / ry
         shape = u ** 2.2 + np.abs(v) ** np.where(v < 0, 2.2, 4.0)   # <= 1 inside the helmet
+        # plain backdrop colour connected to the photo's edge is never helmet, even inside the shape
+        f = im.astype(np.float32)
+        edge = np.r_[f[0], f[-1], f[:, 0], f[:, -1]]
+        near = (np.abs(f - np.median(edge, 0)).max(2) < 10).astype(np.uint8)
+        n, lab = cv2.connectedComponents(near)
+        plain = np.isin(lab, list(set(np.unique(np.r_[lab[0], lab[-1], lab[:, 0], lab[:, -1]])) - {0}))
+        if keep_plain:   # --keep-white: a white helmet on a white backdrop, so the colour rule can't be used
+            plain[:] = False
         gc = np.full((h, w), cv2.GC_PR_FGD, np.uint8)
         gc[shape > 1.0] = cv2.GC_PR_BGD
+        gc[plain] = cv2.GC_BGD
         gc[shape > 1.12] = cv2.GC_BGD
-        gc[shape < 0.75] = cv2.GC_FGD
+        gc[(shape < 0.75) & ~plain] = cv2.GC_FGD
         cv2.grabCut(im, gc, None, np.zeros((1, 65)), np.zeros((1, 65)), 8, cv2.GC_INIT_WITH_MASK)
         fg = ((gc == cv2.GC_FGD) | (gc == cv2.GC_PR_FGD)).astype(np.uint8)
         n, lab, st, _ = cv2.connectedComponentsWithStats(fg)
@@ -59,7 +68,7 @@ def cut(src, dst, box=None):
         fill = np.zeros_like(fg)
         cv2.drawContours(fill, cnts, -1, 1, -1)
         # never outside the grown shape, never a bite out of its inner part (dark logos near a dark wall)
-        fill = ((fill == 1) & (shape <= 1.08)) | (shape <= 0.97)
+        fill = (((fill == 1) & (shape <= 1.08)) | (shape <= 0.97)) & ~plain
         return save(im, cv2.GaussianBlur(fill.astype(np.float32), (0, 0), 0.8), dst)
     f = im.astype(np.float32)
     bright = f.mean(2)
@@ -122,6 +131,8 @@ def save(im, alpha, dst):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) not in (3, 4):
+    keep = "--keep-white" in sys.argv
+    a = [v for v in sys.argv[1:] if v != "--keep-white"]
+    if len(a) not in (2, 3):
         sys.exit(__doc__)
-    cut(sys.argv[1], sys.argv[2], tuple(int(v) for v in sys.argv[3].split(",")) if len(sys.argv) == 4 else None)
+    cut(a[0], a[1], tuple(int(v) for v in a[2].split(",")) if len(a) == 3 else None, keep)

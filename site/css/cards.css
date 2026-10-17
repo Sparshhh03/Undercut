@@ -148,6 +148,7 @@ details.card-how dd { margin: 0; }
 .rv-why { grid-column: 2 / 4; font-size: .82rem; color: var(--ink-2); margin-top: 2px; }
 .rv-season-h { margin: 22px 0 8px; font-weight: 700; font-size: .92rem; }
 .rv-panel .strip { flex-wrap: wrap; row-gap: 4px; }
+.rv-teams { color: var(--ink-2); font-size: .92rem; }
 .rv-tools { position: absolute; top: 16px; right: 16px; left: 16px; display: flex; justify-content: flex-end; gap: 8px; z-index: 5; }
 .reveal.walking .rv-panel, .reveal.walking .rv-tools .rv-prev, .reveal.walking .rv-tools .rv-next { visibility: hidden; }
 .rv-skip { position: absolute; bottom: 20px; left: 0; right: 0; text-align: center; color: var(--ink-3); font-size: .85rem; z-index: 5; }

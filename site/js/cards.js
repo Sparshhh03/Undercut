@@ -23,6 +23,25 @@ const STAT_INFO = {
   FRM: ['Form', r => `${r.points_last5} points per race over the last five`],
   H2H: ['Vs teammate', r => `Beat the teammate in ${Math.round(r.h2h * 100)}% of head-to-heads`],
 };
+// career raw values are shares of the field (0 = front, 1 = back); shown as the same spot on a 20-car grid
+// names of teams that no longer exist (ids from the data); current teams come from team()
+const PAST_TEAMS = {
+  toro_rosso: 'Toro Rosso', alphatauri: 'AlphaTauri', force_india: 'Force India', racing_point: 'Racing Point',
+  alfa: 'Alfa Romeo', sauber: 'Sauber', renault: 'Renault', lotus_f1: 'Lotus', manor: 'Manor', marussia: 'Marussia',
+  caterham: 'Caterham', virgin: 'Virgin', hrt: 'HRT', minardi: 'Minardi', jaguar: 'Jaguar', toyota: 'Toyota',
+  bmw_sauber: 'BMW Sauber', honda: 'Honda', super_aguri: 'Super Aguri', brawn: 'Brawn', spyker: 'Spyker',
+  mf1: 'Midland', jordan: 'Jordan', bar: 'BAR', team_lotus: 'Lotus', lotus_racing: 'Lotus', red_bull: 'Red Bull',
+  rb: 'Racing Bulls',
+};
+const onGrid = share => (1 + share * 19).toFixed(1);
+const CAREER_INFO = {
+  QUA: ['Qualifying', r => `Qualifies P${onGrid(r.avg_quali_share)} on average (as on a 20-car grid)`],
+  PAC: ['Pace', r => `Finishes P${onGrid(r.avg_finish_share)} on average when reaching the flag`],
+  RAC: ['Racecraft', r => `${r.places_gained >= 0 ? '+' : ''}${r.places_gained} places from the grid per finish`],
+  CON: ['Consistency', r => `Finished ${Math.round(r.finish_rate * 100)}% of career races`],
+  SUC: ['Success', (r, f) => `${f.wins} wins, ${f.podiums} podiums, ${f.titles} title${f.titles === 1 ? '' : 's'} in ${f.starts} starts`],
+  H2H: ['Vs teammates', r => `Beat their teammate in ${Math.round(r.h2h * 100)}% of head-to-heads`],
+};
 
 // Real helmet photos (front view, background removed) for drivers who have one; the rest get the drawn helmet.
 const HELMET_PHOTOS = {
@@ -30,12 +49,21 @@ const HELMET_PHOTOS = {
   russell: 'media/helmets/russell.webp', leclerc: 'media/helmets/leclerc.webp', hamilton: 'media/helmets/hamilton.webp',
   norris: 'media/helmets/norris.webp', piastri: 'media/helmets/piastri.webp', lawson: 'media/helmets/lawson.webp',
   arvid_lindblad: 'media/helmets/lindblad.webp', sainz: 'media/helmets/sainz.webp', albon: 'media/helmets/albon.webp',
+  hadjar: 'media/helmets/hadjar.webp', alonso: 'media/helmets/alonso.webp', stroll: 'media/helmets/stroll.webp',
+  bearman: 'media/helmets/bearman.webp', ocon: 'media/helmets/ocon.webp', gasly: 'media/helmets/gasly.webp',
+  colapinto: 'media/helmets/colapinto.webp', hulkenberg: 'media/helmets/hulkenberg.webp',
+  bortoleto: 'media/helmets/bortoleto.webp', perez: 'media/helmets/perez.webp', bottas: 'media/helmets/bottas.webp',
 };
 // Driver photos used as the card's background (the helmet then moves under the rating as a badge)
 const CARD_BG = {
   max_verstappen: 'media/drivers/verstappen.webp', leclerc: 'media/drivers/leclerc.webp', hamilton: 'media/drivers/hamilton.webp',
   russell: 'media/drivers/russell.webp', antonelli: 'media/drivers/antonelli.webp',
-  norris: 'media/drivers/norris.webp', piastri: 'media/drivers/piastri.webp',
+  norris: 'media/drivers/norris.webp', piastri: 'media/drivers/piastri.webp', hadjar: 'media/drivers/hadjar.webp',
+  alonso: 'media/drivers/alonso.webp', stroll: 'media/drivers/stroll.webp', sainz: 'media/drivers/sainz.webp',
+  albon: 'media/drivers/albon.webp', lawson: 'media/drivers/lawson.webp', arvid_lindblad: 'media/drivers/lindblad.webp',
+  perez: 'media/drivers/perez.webp', bottas: 'media/drivers/bottas.webp', bearman: 'media/drivers/bearman.webp',
+  ocon: 'media/drivers/ocon.webp', gasly: 'media/drivers/gasly.webp', colapinto: 'media/drivers/colapinto.webp',
+  hulkenberg: 'media/drivers/hulkenberg.webp', bortoleto: 'media/drivers/bortoleto.webp',
 };
 
 const hash = s => [...s].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 7);
@@ -74,8 +102,7 @@ function helmetSVG(d, teamId) {
   </svg>`;
 }
 
-function cardHTML(d, team, tag = 'button') {
-  const c = d.card;
+function cardHTML(d, team, tag = 'button', c = d.card) {
   const [teamName, teamColor] = team(d.team);
   const surname = d.name.split(' ').slice(-1)[0];
   const stats = Object.entries(c.stats).map(([k, v]) => `<span class="dc-stat"><b>${v}</b><i>${k}</i></span>`).join('');
@@ -106,12 +133,21 @@ export function initCards({ data, team, finChip, short, esc, G, RM }) {
   const drivers = S.drivers.filter(d => d.card);
   const grid = document.querySelector('#card-grid');
   const sortBtns = document.querySelectorAll('#card-sort button');
-  let order = 'rating';
+  const viewBtns = document.querySelectorAll('#card-view button');
+  let order = 'rating', view = 'season';
+  const rating = d => (view === 'career' && d.career) || d.card;
 
   function render() {
-    const list = [...drivers].sort(order === 'rating' ? (a, b) => b.card.ovr - a.card.ovr || a.pos - b.pos : (a, b) => a.pos - b.pos);
-    grid.innerHTML = list.map(d => cardHTML(d, team)).join('');
+    const list = [...drivers].sort(order === 'rating' ? (a, b) => rating(b).ovr - rating(a).ovr || a.pos - b.pos : (a, b) => a.pos - b.pos);
+    grid.innerHTML = list.map(d => cardHTML(d, team, 'button', rating(d))).join('');
+    grid.dataset.view = view;
   }
+  viewBtns.forEach(b => b.addEventListener('click', () => {
+    view = b.dataset.view;
+    viewBtns.forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    document.querySelectorAll('[data-for-view]').forEach(el => { el.hidden = el.dataset.forView !== view; });
+    render();
+  }));
   sortBtns.forEach(b => b.addEventListener('click', () => {
     order = b.dataset.sort;
     sortBtns.forEach(x => x.setAttribute('aria-pressed', String(x === b)));
@@ -132,7 +168,32 @@ export function initCards({ data, team, finChip, short, esc, G, RM }) {
   const dlg = document.querySelector('#card-reveal');
   let tl = null, shown = null;
 
+  function careerPanelHTML(d) {
+    const c = d.career, f = c.facts;
+    const rows = Object.entries(c.stats).map(([k, v]) => `
+      <div class="rv-stat">
+        <span class="rv-k">${CAREER_INFO[k][0]}</span>
+        <span class="rv-bar"><i style="--v:${v}%"></i></span>
+        <b class="rv-v">${v}</b>
+        <span class="rv-why">${esc(CAREER_INFO[k][1](c.raw, f))}</span>
+      </div>`).join('');
+    return `
+      <h3 id="rv-title" class="rv-name">${esc(d.name)}</h3>
+      <p class="rv-sub">Career since ${f.first}: ${f.seasons} season${f.seasons === 1 ? '' : 's'}. ${esc(d.nationality)}.</p>
+      <dl class="rv-facts">
+        <div><dt>Starts</dt><dd>${f.starts}</dd></div>
+        <div><dt>Wins</dt><dd>${f.wins}</dd></div>
+        <div><dt>Podiums</dt><dd>${f.podiums}</dd></div>
+        <div><dt>Poles</dt><dd>${f.poles}</dd></div>
+        <div><dt>${f.titles ? 'Titles' : 'Best season'}</dt><dd>${f.titles || (f.best_champ ? 'P' + f.best_champ : '–')}</dd></div>
+      </dl>
+      <div class="rv-stats">${rows}</div>
+      <p class="rv-season-h">Teams</p>
+      <p class="rv-teams">${f.teams.map(t => esc(PAST_TEAMS[t] || team(t)[0])).join(', ')}</p>`;
+  }
+
   function panelHTML(d) {
+    if (view === 'career' && d.career) return careerPanelHTML(d);
     const c = d.card;
     const [teamName] = team(d.team);
     const by = new Map(d.finishes.map(f => [f.round, f]));
@@ -162,7 +223,7 @@ export function initCards({ data, team, finChip, short, esc, G, RM }) {
     shown = d;
     const [teamName, teamColor] = team(d.team);
     dlg.style.setProperty('--team', teamColor);
-    dlg.querySelector('.rv-card').innerHTML = cardHTML(d, team, 'div');
+    dlg.querySelector('.rv-card').innerHTML = cardHTML(d, team, 'div', rating(d));
     dlg.querySelector('.rv-panel').innerHTML = panelHTML(d);
     const beats = dlg.querySelectorAll('.rv-beat');
     beats[0].textContent = d.nationality;

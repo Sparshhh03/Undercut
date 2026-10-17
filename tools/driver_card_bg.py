@@ -1,7 +1,7 @@
 """Build a driver card's background photo: the driver cut out of their photo and placed on a team
 backdrop, framed exactly like the Verstappen card (same head size and position), 720 x 1006 px.
 
-    python tools/driver_card_bg.py FIGURE BACKDROP OUT HEAD_TOP CHIN FACE_X [BACKDROP_BOX]
+    python tools/driver_card_bg.py FIGURE BACKDROP OUT HEAD_TOP CHIN FACE_X [BACKDROP_BOX] [CHOKE] [SHADOW] [MATCH_REF] [--key | --solid]
 
 FIGURE        photo of the driver: flat light backdrop, pale textured backdrop, or any backdrop if the
               driver fills the middle
@@ -25,7 +25,9 @@ HEAD, HEAD_Y, FACE_DX = 201, 60, 43
 FERRARI_BOX = (402, 590, 1118, 1590)
 
 
-def figure_alpha(im, head=None):
+def figure_alpha(im, head=None, key=False):
+    if key == 'solid':
+        return solid_alpha(im, head)
     h, w = im.shape[:2]
     f = im.astype(np.float32)
     edge = np.r_[f[0], f[-1], f[:, 0], f[:, -1]]
@@ -33,10 +35,12 @@ def figure_alpha(im, head=None):
     busy = light and edge.std(0).max() > 6   # pale but textured backdrop (feathers, a faint logo...)
     k = max(5, (min(h, w) // 60) | 1)
     bright, colour = f.mean(2), f.max(2) - f.min(2)
+    if key:
+        return key_alpha(im, f, bright, head)
     if busy:
         # seed the driver from what the backdrop isn't: saturated (suit, skin) or dark (hair, shoes)
         pale = (bright > 175) & (colour < 30)
-        seed = cv2.morphologyEx(((colour > 55) | (bright < 95)).astype(np.uint8), cv2.MORPH_OPEN, np.ones((5, 5), np.uint8))
+        seed = cv2.morphologyEx((((colour > 55) & (bright < 185)) | (bright < 95)).astype(np.uint8), cv2.MORPH_OPEN, np.ones((5, 5), np.uint8))
         n, lab, st, cen = cv2.connectedComponentsWithStats(seed)
         core = np.isin(lab, [i for i in range(1, n) if st[i, cv2.CC_STAT_AREA] > h * w * 0.002
                              and 0.15 * w < cen[i][0] < 0.85 * w]).astype(np.uint8)
@@ -55,7 +59,7 @@ def figure_alpha(im, head=None):
             cv2.fillPoly(cmask, [collar], 1)
             gc[cmask.astype(bool)] = cv2.GC_FGD
         cv2.grabCut(im, gc, None, np.zeros((1, 65)), np.zeros((1, 65)), 6, cv2.GC_INIT_WITH_MASK)
-        cand = pale.astype(np.uint8)
+        cand = (pale | ((bright > 165) & (colour < 80))).astype(np.uint8)   # pale tints count for enclosed gaps
         bgc = np.median(f[pale & near], 0)
     elif light:
         bgc = np.median(edge, 0)
@@ -122,14 +126,135 @@ def refine_edges(f, fill, alpha, bgc, band):
     return out
 
 
-def build(figure, backdrop, out, head_top, chin, face_x, box=FERRARI_BOX):
-    im = cv2.imread(figure)
-    alpha, bgc = figure_alpha(im, (head_top, chin, face_x))
+def key_alpha(im, f, bright, head=None):
+    """--key: a pale TINTED backdrop (teal watercolour) behind a white suit. Neither brightness nor
+    saturation separates them, but the hue does: the backdrop is green-leaning (G > R) or plain white,
+    the suit's white is blue-leaning (B > G), skin is red-leaning (R > G), hair and stripes are darker.
+    Those rules seed GrabCut; anything the rules leave unsure, GrabCut decides from the colours."""
+    h, w = f.shape[:2]
+    B, G, R = f[..., 0], f[..., 1], f[..., 2]
+    back = (bright > 150) & (B - G < 10) & ((G - R > 10) | (f.min(2) > 236))
+    driver = ((B - G > 14) & (bright > 60)) | (bright < 130) | (R - G > 15)
+    ell = lambda r: cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (r, r))
+    drv = cv2.morphologyEx(driver.astype(np.uint8), cv2.MORPH_OPEN, ell(5))
+    n, lab, st, _ = cv2.connectedComponentsWithStats(drv)
+    drv = (lab == 1 + np.argmax(st[1:, cv2.CC_STAT_AREA])).astype(np.uint8)   # the figure, not specks
+    gc = np.full((h, w), cv2.GC_PR_BGD, np.uint8)
+    gc[cv2.dilate(drv, ell(15)).astype(bool) & ~back] = cv2.GC_PR_FGD
+    gc[cv2.erode(drv, ell(7)).astype(bool)] = cv2.GC_FGD
+    gc[cv2.erode(back.astype(np.uint8), ell(9)).astype(bool) & ~cv2.dilate(drv, ell(31)).astype(bool)] = cv2.GC_BGD
+    cv2.grabCut(im, gc, None, np.zeros((1, 65)), np.zeros((1, 65)), 6, cv2.GC_INIT_WITH_MASK)
+    fg = ((gc == cv2.GC_FGD) | (gc == cv2.GC_PR_FGD)).astype(np.uint8)
+    n, lab, st, _ = cv2.connectedComponentsWithStats(fg)
+    fg = (lab == 1 + np.argmax(st[1:, cv2.CC_STAT_AREA])).astype(np.uint8)
+    fg = cv2.morphologyEx(fg, cv2.MORPH_CLOSE, ell(5))
+    cnts, hier = cv2.findContours(fg, cv2.RETR_CCOMP, cv2.CHAIN_APPROX_NONE)
+    fill = np.zeros_like(fg)
+    for i, c in enumerate(cnts):   # fill small holes (logo letters), keep big ones (gaps by the arms)
+        if hier[0][i][3] < 0:
+            cv2.drawContours(fill, cnts, i, 1, -1)
+    tint = (G - R > 10) & (bright > 150)   # the backdrop's teal; white logos on the suit don't have it
+    for i, c in enumerate(cnts):
+        if hier[0][i][3] >= 0 and cv2.contourArea(c) > h * w * 4e-4:
+            hole = np.zeros((h, w), np.uint8)
+            cv2.drawContours(hole, cnts, i, 1, -1)
+            if tint[hole.astype(bool)].mean() > 0.3:
+                cv2.drawContours(fill, cnts, i, 0, -1)
+    if head:   # flecks of backdrop caught in curly hair: only in the top half of the head, never on the suit
+        hair = np.zeros((h, w), bool)
+        hair[:int(head[0] + 0.5 * (head[1] - head[0]))] = True
+        fill[back & ~(bright < 130) & hair] = 0
+    fill = cv2.morphologyEx(fill, cv2.MORPH_OPEN, ell(3))
+    alpha = cv2.GaussianBlur(fill.astype(np.float32), (0, 0), 1.0)
+    return alpha, None
+
+
+def solid_alpha(im, head):
+    """--solid: a saturated single-hue backdrop (Audi orange-red, Alpine blue), shaded and with big
+    darker numbers on it. Backdrop = the border's hue, strongly saturated; driver = low saturation (black,
+    grey, white suit, hair) or a clearly different hue (skin, pink suit). GrabCut settles the rest, and the
+    face and neck (from the head measurements) are always kept."""
+    h, w = im.shape[:2]
+    hsv = cv2.cvtColor(im, cv2.COLOR_BGR2HSV).astype(np.float32)
+    H, Sat, V = hsv[..., 0], hsv[..., 1], hsv[..., 2]
+    edge_h = np.r_[H[0], H[:, 0], H[:, -1]]
+    hb = float(np.median(edge_h))
+    dh = np.minimum(np.abs(H - hb), 180 - np.abs(H - hb))
+    back = (dh < 9) & (Sat > 150) & (V > 70)
+    driver = (Sat < 80) | (dh > 25) | (V < 45)
+    ell = lambda r: cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (r, r))
+    gc = np.full((h, w), cv2.GC_PR_FGD, np.uint8)
+    gc[back] = cv2.GC_PR_BGD
+    gc[cv2.erode(back.astype(np.uint8), ell(7)).astype(bool)] = cv2.GC_BGD
+    gc[cv2.erode((driver & ~back).astype(np.uint8), ell(5)).astype(bool)] = cv2.GC_FGD
+    top, chin, fx = head
+    hh = chin - top
+    face = np.zeros((h, w), np.uint8)
+    cv2.ellipse(face, (int(fx), int((top + chin) / 2 + .05 * hh)), (int(.3 * hh), int(.42 * hh)), 0, 0, 360, 1, -1)
+    gc[face.astype(bool)] = cv2.GC_FGD
+    cv2.grabCut(im, gc, None, np.zeros((1, 65)), np.zeros((1, 65)), 6, cv2.GC_INIT_WITH_MASK)
+    fg = ((gc == cv2.GC_FGD) | (gc == cv2.GC_PR_FGD)).astype(np.uint8)
+    n, lab, st, _ = cv2.connectedComponentsWithStats(fg)
+    fg = (lab == 1 + np.argmax(st[1:, cv2.CC_STAT_AREA])).astype(np.uint8)
+    fg = cv2.morphologyEx(fg, cv2.MORPH_OPEN, ell(3))
+    cnts, hier = cv2.findContours(fg, cv2.RETR_CCOMP, cv2.CHAIN_APPROX_NONE)
+    fill = np.zeros_like(fg)
+    for i, c in enumerate(cnts):
+        if hier[0][i][3] < 0:
+            cv2.drawContours(fill, cnts, i, 1, -1)
+    # holes are kept filled: suit panels can share the backdrop's colour (Audi's red mesh panel);
+    # but backdrop-coloured specks in the hair (top half of the head) are removed
+    hair = np.zeros((h, w), bool)
+    hair[:int(top + .5 * hh)] = True
+    if 30 < hb < 160:   # only when the backdrop hue is far from skin tones (blue yes, orange-red no)
+        fill[hair & (dh < 14) & (Sat > 70)] = 0
+    fill = cv2.morphologyEx(fill, cv2.MORPH_OPEN, ell(3))
+    return cv2.GaussianBlur(fill.astype(np.float32), (0, 0), 0.8), None
+
+
+def match_colour(fgc, mask, ref_path, amount=0.85):
+    """Shift the driver's colours (Lab mean and spread) towards the driver in a reference card photo.
+    The reference driver is everything in the middle of that photo that isn't bright backdrop colour."""
+    ref = cv2.imread(ref_path).astype(np.float32)
+    rh, rw = ref.shape[:2]
+    sat = ref.max(2) - ref.min(2)
+    rmask = np.zeros((rh, rw), bool)
+    rmask[int(rh * .05):int(rh * .75), int(rw * .25):int(rw * .75)] = True
+    rmask &= ~((ref[..., 2] > 140) & (sat > 90))          # not the yellow / red backdrop
+    to_lab = lambda x: cv2.cvtColor(np.clip(x, 0, 255).astype(np.uint8), cv2.COLOR_BGR2LAB).astype(np.float32)
+    src, dst = to_lab(fgc), to_lab(ref)
+    out = src.copy()
+    for c in range(3):
+        sm, ss = src[..., c][mask].mean(), src[..., c][mask].std() + 1e-3
+        dm, ds = dst[..., c][rmask].mean(), dst[..., c][rmask].std() + 1e-3
+        out[..., c] = (src[..., c] - sm) * (ds / ss) + dm
+    out = src + amount * (out - src)
+    return cv2.cvtColor(np.clip(out, 0, 255).astype(np.uint8), cv2.COLOR_LAB2BGR).astype(np.float32)
+
+
+def build(figure, backdrop, out, head_top, chin, face_x, box=FERRARI_BOX, choke=0, shadow=0.45, match=None, key=False):
+    im = cv2.imread(figure, cv2.IMREAD_UNCHANGED)
+    if im.ndim == 3 and im.shape[2] == 4 and (im[..., 3] < 250).mean() > 0.05:   # already cut out
+        alpha, bgc, im = im[..., 3].astype(np.float32) / 255, None, np.ascontiguousarray(im[..., :3])
+    else:
+        im = im[..., :3] if im.ndim == 3 else cv2.cvtColor(im, cv2.COLOR_GRAY2BGR)
+        alpha, bgc = figure_alpha(im, (head_top, chin, face_x), key)
+    rows = np.where(alpha[-3:].max(1) > 0.5)[0]
+    if len(rows):   # cut off by the photo's bottom edge (waist-up shots): fade out instead of a hard line
+        fh = int(alpha.shape[0] * 0.22)
+        ramp = np.ones(alpha.shape[0], np.float32)
+        ramp[-fh:] = np.linspace(1, 0, fh) ** 1.5
+        alpha = alpha * ramp[:, None]
+    if choke:   # soft photos: pull the edge in by `choke` px so the blur into the old backdrop doesn't show
+        alpha = cv2.erode(alpha, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (2 * choke + 1, 2 * choke + 1)))
+        alpha = cv2.GaussianBlur(alpha, (0, 0), 0.8)
     fgc = im.astype(np.float32)
     if bgc is not None:   # take the light backdrop's colour out of the semi-transparent edge pixels
         a = np.clip(alpha, 0.05, 1)[..., None]
         fgc = np.clip((fgc - (1 - a) * bgc) / a, 0, 255)
 
+    if match is not None:   # grade the driver like a reference driver photo (same light and colour)
+        fgc = match_colour(fgc, alpha > 0.9, match)
     s = HEAD / (chin - head_top)
     M = np.float32([[s, 0, W / 2 + FACE_DX - s * face_x], [0, s, HEAD_Y - s * head_top]])
     interp = cv2.INTER_LANCZOS4 if s > 1 else cv2.INTER_AREA
@@ -141,7 +266,7 @@ def build(figure, backdrop, out, head_top, chin, face_x, box=FERRARI_BOX):
     bd = cv2.resize(bd[y0:y1, x0:x1], (W, H), interpolation=cv2.INTER_AREA).astype(np.float32)
     # a soft contact shadow behind the driver so they sit in the scene rather than float on it
     sh = cv2.GaussianBlur(a[..., 0], (0, 0), 14)[..., None]
-    bd = bd * (1 - 0.45 * sh)
+    bd = bd * (1 - shadow * sh)   # 0 on bright backdrops, where it reads as a dark outline
     comp = np.clip(fig * a + bd * (1 - a), 0, 255).astype(np.uint8)
     cv2.imwrite(out.rsplit(".", 1)[0] + "_full.png", comp)
     ok = cv2.imwrite(out, comp, [cv2.IMWRITE_WEBP_QUALITY, 86])
@@ -149,8 +274,10 @@ def build(figure, backdrop, out, head_top, chin, face_x, box=FERRARI_BOX):
 
 
 if __name__ == "__main__":
-    a = sys.argv[1:]
-    if len(a) not in (6, 7):
+    key = "solid" if "--solid" in sys.argv else "--key" in sys.argv
+    a = [v for v in sys.argv[1:] if v not in ("--key", "--solid")]
+    if len(a) not in (6, 7, 8, 9, 10):
         sys.exit(__doc__)
-    box = tuple(int(v) for v in a[6].split(",")) if len(a) == 7 else FERRARI_BOX
-    build(a[0], a[1], a[2], float(a[3]), float(a[4]), float(a[5]), box)
+    box = tuple(int(v) for v in a[6].split(",")) if len(a) >= 7 else FERRARI_BOX
+    build(a[0], a[1], a[2], float(a[3]), float(a[4]), float(a[5]), box, int(a[7]) if len(a) >= 8 else 0,
+          float(a[8]) if len(a) >= 9 else 0.45, a[9] if len(a) == 10 else None, key)

@@ -11,11 +11,12 @@ from pathlib import Path
 import pandas as pd
 
 from f1 import CURRENT_SEASON, backtest, load_all, next_round, predict_race
-from f1predict.data import load_schedule, load_standings
+from f1predict.data import load_final_standings, load_qualifying, load_results, load_schedule, load_standings
 from f1predict.model import race_metrics
-from f1predict.ratings import driver_ratings
+from f1predict.ratings import career_ratings, driver_ratings
 
 OUT = Path(__file__).resolve().parent / "site" / "data.json"
+CAREER_FIRST = 2001   # earliest debut on the current grid (Alonso); older seasons are cached in data/
 BACKTEST_SEASONS = [2024, 2025, CURRENT_SEASON]
 
 FEATURE_LABELS = {
@@ -53,6 +54,15 @@ def metrics_dict(m):
     return {k: r3(v) for k, v in m.items()}
 
 
+def career_cards(results, quali, season, drivers):
+    """Career ratings for the current grid: seasons before the model's data are read from the cache."""
+    early = range(CAREER_FIRST, int(results["season"].min()))
+    res = pd.concat([load_results(list(early), refresh_current=False), results], ignore_index=True)
+    q = pd.concat([load_qualifying(list(early), refresh_current=False), quali], ignore_index=True)
+    finals = {s: load_final_standings(s) for s in range(CAREER_FIRST, season)}
+    return career_ratings(res, q, finals, drivers)
+
+
 def standings_block(results, quali, season):
     """Championship tables plus each driver's and team's Grand Prix record this season."""
     drivers, constructors = load_standings(season)
@@ -78,6 +88,9 @@ def standings_block(results, quali, season):
         d["dnfs"] = int((~r["finished"].astype(bool)).sum())
         d["best"] = int(r["position"].min()) if len(r) else None
         d["card"] = cards.get(d["driver"])  # FUT-style ratings; None for stand-ins with few races
+    career = career_cards(results, quali, season, [d["driver"] for d in drivers if d["card"]])
+    for d in drivers:
+        d["career"] = career.get(d["driver"])
 
     for c in constructors:
         r = res[res["constructor"] == c["team"]]

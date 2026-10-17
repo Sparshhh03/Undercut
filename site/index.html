@@ -134,8 +134,12 @@
   <!-- DRIVERS -->
   <section id="drivers" aria-labelledby="drivers-h">
     <div class="sec-head">
-      <div><h2 id="drivers-h">Every driver, rated</h2><p>Each card turns a driver's season into six ratings from 40 to 99, built from the same race results the model learns from. Open a card to see where the numbers come from.</p></div>
+      <div><h2 id="drivers-h">Every driver, rated</h2><p data-for-view="season">Each card turns a driver's season into six ratings from 40 to 99, built from the same race results the model learns from. Open a card to see where the numbers come from.</p><p data-for-view="career" hidden>The same cards for whole careers: every Grand Prix since each driver's debut, rated against today's grid. Open a card for career totals and teams.</p></div>
       <div class="card-tools">
+        <div class="segmented" role="group" aria-label="Ratings for" id="card-view">
+          <button data-view="season" aria-pressed="true">This season</button>
+          <button data-view="career" aria-pressed="false">Career</button>
+        </div>
         <div class="segmented" role="group" aria-label="Sort cards" id="card-sort">
           <button data-sort="rating" aria-pressed="true">Rating</button>
           <button data-sort="standings" aria-pressed="false">Championship</button>
@@ -153,6 +157,7 @@
         <dt>FRM</dt><dd>Form: points per race over the last five Grands Prix.</dd>
         <dt>H2H</dt><dd>Vs teammate: share of qualifying and race head-to-heads won against the driver in the same car.</dd>
       </dl>
+      <p data-for-view="career" hidden>In the Career view, positions count as a share of the field (grids have had 18 to 26 cars), Form becomes <b>SUC</b>, success: win rate, podium rate and championships, and drivers with few starts are pulled towards the average, so a rookie's handful of races can't top the table. Our data starts in 2001.</p>
       <p>Each stat is rescaled so the best driver on the grid gets about 97 and the slowest about 40. The overall rating weights pace and qualifying highest. Because two stats compare drivers with their teammates, a great driver in a slow car still rates well. Gold is 80 and up, silver 70 to 79, bronze below 70. Drivers with fewer than three starts this season have no card.</p>
     </details>
   </section>

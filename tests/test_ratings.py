@@ -4,7 +4,7 @@
 import unittest
 
 from f1predict.data import load_qualifying, load_results
-from f1predict.ratings import MIN_STARTS, STATS, driver_ratings
+from f1predict.ratings import CAREER_STATS, MIN_STARTS, STATS, career_ratings, driver_ratings
 
 SEASON = 2025
 
@@ -36,6 +36,32 @@ class Ratings(unittest.TestCase):
     def test_best_qualifier_has_top_qualifying_stat(self):
         best = max(self.cards, key=lambda d: -self.cards[d]["raw"]["avg_quali"])
         self.assertEqual(self.cards[best]["stats"]["QUA"], max(c["stats"]["QUA"] for c in self.cards.values()))
+
+
+class CareerRatings(unittest.TestCase):
+    """Career view on the 2018-2025 data: ranges, totals that add up, and rookies held near average."""
+    @classmethod
+    def setUpClass(cls):
+        seasons = list(range(2018, 2026))
+        cls.results = load_results(seasons, refresh_current=False)
+        cls.quali = load_qualifying(seasons, refresh_current=False)
+        cls.grid = list(cls.results[cls.results["season"] == 2025]["driver"].unique())
+        cls.cards = career_ratings(cls.results, cls.quali, {}, cls.grid)
+
+    def test_ranges(self):
+        for d, c in self.cards.items():
+            self.assertTrue(all(40 <= c["stats"][k] <= 97 for k in CAREER_STATS), d)
+            self.assertTrue(60 <= c["ovr"] <= 94, d)
+
+    def test_facts_match_the_results(self):
+        for d, c in self.cards.items():
+            r = self.results[self.results["driver"] == d]
+            self.assertEqual(c["facts"]["starts"], len(r))
+            self.assertEqual(c["facts"]["wins"], int((r["position"] == 1).sum()))
+
+    def test_most_wins_has_top_success(self):
+        top = max(self.cards, key=lambda d: self.cards[d]["facts"]["wins"])
+        self.assertEqual(self.cards[top]["stats"]["SUC"], max(c["stats"]["SUC"] for c in self.cards.values()))
 
 
 if __name__ == "__main__":

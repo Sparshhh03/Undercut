@@ -139,6 +139,17 @@ def load_standings(season):
     return drivers, constructors
 
 
+def load_final_standings(season):
+    """Final drivers' championship of a finished season, cached: {driver id: position}."""
+    path = CACHE / f"standings_{season}.json"
+    if path.exists():
+        return json.loads(path.read_text())
+    lists = _get(f"{API}/{season}/driverstandings.json")["StandingsTable"]["StandingsLists"]
+    table = {s["Driver"]["driverId"]: int(s["position"]) for s in lists[0]["DriverStandings"] if s.get("position")} if lists else {}
+    path.write_text(json.dumps(table))
+    return table
+
+
 def load_schedule(season):
     data = _get(f"{API}/{season}.json", {"limit": 100})
     return pd.DataFrame([{

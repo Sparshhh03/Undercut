@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-16T18:59+00:00",
+ "generated_at": "2026-10-17T19:09+00:00",
  "season": 2026,
  "next_round": 18,
  "races": [
@@ -5059,6 +5059,38 @@
       "points_last5": 18.6,
       "h2h": 0.65
      }
+    },
+    "career": {
+     "ovr": 75,
+     "tier": "silver",
+     "stats": {
+      "QUA": 79,
+      "PAC": 75,
+      "RAC": 67,
+      "CON": 55,
+      "SUC": 62,
+      "H2H": 55
+     },
+     "raw": {
+      "avg_quali_share": 0.28,
+      "avg_finish_share": 0.246,
+      "places_gained": 0.9,
+      "finish_rate": 0.88,
+      "h2h": 0.34
+     },
+     "facts": {
+      "first": 2025,
+      "seasons": 2,
+      "starts": 41,
+      "wins": 8,
+      "podiums": 17,
+      "poles": 6,
+      "titles": 0,
+      "best_champ": 7,
+      "teams": [
+       "mercedes"
+      ]
+     }
     }
    },
    {
@@ -5232,6 +5264,39 @@
       "finish_rate": 0.82,
       "points_last5": 11.0,
       "h2h": 0.35
+     }
+    },
+    "career": {
+     "ovr": 71,
+     "tier": "silver",
+     "stats": {
+      "QUA": 71,
+      "PAC": 66,
+      "RAC": 61,
+      "CON": 43,
+      "SUC": 50,
+      "H2H": 72
+     },
+     "raw": {
+      "avg_quali_share": 0.409,
+      "avg_finish_share": 0.362,
+      "places_gained": 0.8,
+      "finish_rate": 0.86,
+      "h2h": 0.58
+     },
+     "facts": {
+      "first": 2019,
+      "seasons": 8,
+      "starts": 169,
+      "wins": 8,
+      "podiums": 32,
+      "poles": 11,
+      "titles": 0,
+      "best_champ": 4,
+      "teams": [
+       "williams",
+       "mercedes"
+      ]
      }
     }
    },
@@ -5407,6 +5472,40 @@
       "points_last5": 7.8,
       "h2h": 0.5
      }
+    },
+    "career": {
+     "ovr": 93,
+     "tier": "gold",
+     "stats": {
+      "QUA": 97,
+      "PAC": 96,
+      "RAC": 86,
+      "CON": 97,
+      "SUC": 97,
+      "H2H": 71
+     },
+     "raw": {
+      "avg_quali_share": 0.171,
+      "avg_finish_share": 0.138,
+      "places_gained": 0.9,
+      "finish_rate": 0.9,
+      "h2h": 0.55
+     },
+     "facts": {
+      "first": 2007,
+      "seasons": 20,
+      "starts": 397,
+      "wins": 106,
+      "podiums": 208,
+      "poles": 107,
+      "titles": 7,
+      "best_champ": 1,
+      "teams": [
+       "mclaren",
+       "mercedes",
+       "ferrari"
+      ]
+     }
     }
    },
    {
@@ -5580,6 +5679,39 @@
       "finish_rate": 0.76,
       "points_last5": 20.2,
       "h2h": 0.79
+     }
+    },
+    "career": {
+     "ovr": 94,
+     "tier": "gold",
+     "stats": {
+      "QUA": 94,
+      "PAC": 97,
+      "RAC": 97,
+      "CON": 91,
+      "SUC": 90,
+      "H2H": 97
+     },
+     "raw": {
+      "avg_quali_share": 0.188,
+      "avg_finish_share": 0.121,
+      "places_gained": 1.4,
+      "finish_rate": 0.85,
+      "h2h": 0.84
+     },
+     "facts": {
+      "first": 2015,
+      "seasons": 12,
+      "starts": 250,
+      "wins": 73,
+      "podiums": 136,
+      "poles": 53,
+      "titles": 4,
+      "best_champ": 1,
+      "teams": [
+       "toro_rosso",
+       "red_bull"
+      ]
      }
     }
    },
@@ -5755,6 +5887,39 @@
       "points_last5": 10.8,
       "h2h": 0.5
      }
+    },
+    "career": {
+     "ovr": 79,
+     "tier": "silver",
+     "stats": {
+      "QUA": 86,
+      "PAC": 84,
+      "RAC": 65,
+      "CON": 76,
+      "SUC": 53,
+      "H2H": 78
+     },
+     "raw": {
+      "avg_quali_share": 0.259,
+      "avg_finish_share": 0.221,
+      "places_gained": 0.6,
+      "finish_rate": 0.84,
+      "h2h": 0.64
+     },
+     "facts": {
+      "first": 2018,
+      "seasons": 9,
+      "starts": 190,
+      "wins": 9,
+      "podiums": 55,
+      "poles": 24,
+      "titles": 0,
+      "best_champ": 2,
+      "teams": [
+       "sauber",
+       "ferrari"
+      ]
+     }
     }
    },
    {
@@ -5928,6 +6093,38 @@
       "finish_rate": 0.76,
       "points_last5": 8.2,
       "h2h": 0.59
+     }
+    },
+    "career": {
+     "ovr": 78,
+     "tier": "silver",
+     "stats": {
+      "QUA": 84,
+      "PAC": 78,
+      "RAC": 61,
+      "CON": 72,
+      "SUC": 58,
+      "H2H": 75
+     },
+     "raw": {
+      "avg_quali_share": 0.28,
+      "avg_finish_share": 0.264,
+      "places_gained": 0.2,
+      "finish_rate": 0.89,
+      "h2h": 0.61
+     },
+     "facts": {
+      "first": 2019,
+      "seasons": 8,
+      "starts": 169,
+      "wins": 13,
+      "podiums": 49,
+      "poles": 19,
+      "titles": 1,
+      "best_champ": 1,
+      "teams": [
+       "mclaren"
+      ]
      }
     }
    },
@@ -6103,6 +6300,38 @@
       "points_last5": 6.4,
       "h2h": 0.41
      }
+    },
+    "career": {
+     "ovr": 76,
+     "tier": "silver",
+     "stats": {
+      "QUA": 84,
+      "PAC": 78,
+      "RAC": 64,
+      "CON": 73,
+      "SUC": 57,
+      "H2H": 53
+     },
+     "raw": {
+      "avg_quali_share": 0.255,
+      "avg_finish_share": 0.246,
+      "places_gained": -0.1,
+      "finish_rate": 0.91,
+      "h2h": 0.34
+     },
+     "facts": {
+      "first": 2023,
+      "seasons": 4,
+      "starts": 87,
+      "wins": 9,
+      "podiums": 28,
+      "poles": 6,
+      "titles": 0,
+      "best_champ": 3,
+      "teams": [
+       "mclaren"
+      ]
+     }
     }
    },
    {
@@ -6252,6 +6481,39 @@
       "finish_rate": 0.86,
       "points_last5": 8.7,
       "h2h": 0.22
+     }
+    },
+    "career": {
+     "ovr": 69,
+     "tier": "bronze",
+     "stats": {
+      "QUA": 69,
+      "PAC": 60,
+      "RAC": 53,
+      "CON": 65,
+      "SUC": 45,
+      "H2H": 66
+     },
+     "raw": {
+      "avg_quali_share": 0.422,
+      "avg_finish_share": 0.422,
+      "places_gained": 0.4,
+      "finish_rate": 0.87,
+      "h2h": 0.52
+     },
+     "facts": {
+      "first": 2025,
+      "seasons": 2,
+      "starts": 38,
+      "wins": 0,
+      "podiums": 3,
+      "poles": 0,
+      "titles": 0,
+      "best_champ": 12,
+      "teams": [
+       "rb",
+       "red_bull"
+      ]
      }
     }
    },
@@ -6427,6 +6689,40 @@
       "points_last5": 4.0,
       "h2h": 0.59
      }
+    },
+    "career": {
+     "ovr": 66,
+     "tier": "bronze",
+     "stats": {
+      "QUA": 58,
+      "PAC": 53,
+      "RAC": 54,
+      "CON": 73,
+      "SUC": 43,
+      "H2H": 57
+     },
+     "raw": {
+      "avg_quali_share": 0.568,
+      "avg_finish_share": 0.495,
+      "places_gained": 1.0,
+      "finish_rate": 0.87,
+      "h2h": 0.38
+     },
+     "facts": {
+      "first": 2023,
+      "seasons": 4,
+      "starts": 52,
+      "wins": 0,
+      "podiums": 0,
+      "poles": 0,
+      "titles": 0,
+      "best_champ": 14,
+      "teams": [
+       "alphatauri",
+       "rb",
+       "red_bull"
+      ]
+     }
     }
    },
    {
@@ -6600,6 +6896,41 @@
       "finish_rate": 0.88,
       "points_last5": 1.2,
       "h2h": 0.68
+     }
+    },
+    "career": {
+     "ovr": 67,
+     "tier": "bronze",
+     "stats": {
+      "QUA": 58,
+      "PAC": 51,
+      "RAC": 53,
+      "CON": 68,
+      "SUC": 41,
+      "H2H": 73
+     },
+     "raw": {
+      "avg_quali_share": 0.539,
+      "avg_finish_share": 0.489,
+      "places_gained": 1.0,
+      "finish_rate": 0.85,
+      "h2h": 0.59
+     },
+     "facts": {
+      "first": 2017,
+      "seasons": 10,
+      "starts": 195,
+      "wins": 1,
+      "podiums": 5,
+      "poles": 1,
+      "titles": 0,
+      "best_champ": 7,
+      "teams": [
+       "toro_rosso",
+       "red_bull",
+       "alphatauri",
+       "alpine"
+      ]
      }
     }
    },
@@ -6775,6 +7106,38 @@
       "points_last5": 2.6,
       "h2h": 0.41
      }
+    },
+    "career": {
+     "ovr": 70,
+     "tier": "silver",
+     "stats": {
+      "QUA": 65,
+      "PAC": 60,
+      "RAC": 62,
+      "CON": 89,
+      "SUC": 46,
+      "H2H": 61
+     },
+     "raw": {
+      "avg_quali_share": 0.49,
+      "avg_finish_share": 0.429,
+      "places_gained": 1.6,
+      "finish_rate": 0.94,
+      "h2h": 0.41
+     },
+     "facts": {
+      "first": 2026,
+      "seasons": 1,
+      "starts": 17,
+      "wins": 0,
+      "podiums": 0,
+      "poles": 0,
+      "titles": 0,
+      "best_champ": null,
+      "teams": [
+       "rb"
+      ]
+     }
     }
    },
    {
@@ -6948,6 +7311,39 @@
       "finish_rate": 0.88,
       "points_last5": 1.6,
       "h2h": 0.32
+     }
+    },
+    "career": {
+     "ovr": 63,
+     "tier": "bronze",
+     "stats": {
+      "QUA": 47,
+      "PAC": 42,
+      "RAC": 53,
+      "CON": 73,
+      "SUC": 43,
+      "H2H": 55
+     },
+     "raw": {
+      "avg_quali_share": 0.724,
+      "avg_finish_share": 0.628,
+      "places_gained": 1.5,
+      "finish_rate": 0.86,
+      "h2h": 0.34
+     },
+     "facts": {
+      "first": 2024,
+      "seasons": 3,
+      "starts": 44,
+      "wins": 0,
+      "podiums": 0,
+      "poles": 0,
+      "titles": 0,
+      "best_champ": 19,
+      "teams": [
+       "williams",
+       "alpine"
+      ]
      }
     }
    },
@@ -7123,6 +7519,39 @@
       "points_last5": 0.4,
       "h2h": 0.67
      }
+    },
+    "career": {
+     "ovr": 68,
+     "tier": "bronze",
+     "stats": {
+      "QUA": 51,
+      "PAC": 52,
+      "RAC": 69,
+      "CON": 77,
+      "SUC": 43,
+      "H2H": 72
+     },
+     "raw": {
+      "avg_quali_share": 0.66,
+      "avg_finish_share": 0.515,
+      "places_gained": 2.7,
+      "finish_rate": 0.84,
+      "h2h": 0.61
+     },
+     "facts": {
+      "first": 2024,
+      "seasons": 3,
+      "starts": 44,
+      "wins": 0,
+      "podiums": 0,
+      "poles": 0,
+      "titles": 0,
+      "best_champ": 13,
+      "teams": [
+       "ferrari",
+       "haas"
+      ]
+     }
     }
    },
    {
@@ -7296,6 +7725,45 @@
       "finish_rate": 0.76,
       "points_last5": 1.0,
       "h2h": 0.5
+     }
+    },
+    "career": {
+     "ovr": 67,
+     "tier": "bronze",
+     "stats": {
+      "QUA": 61,
+      "PAC": 54,
+      "RAC": 55,
+      "CON": 68,
+      "SUC": 40,
+      "H2H": 66
+     },
+     "raw": {
+      "avg_quali_share": 0.51,
+      "avg_finish_share": 0.459,
+      "places_gained": 1.0,
+      "finish_rate": 0.8,
+      "h2h": 0.51
+     },
+     "facts": {
+      "first": 2010,
+      "seasons": 15,
+      "starts": 271,
+      "wins": 0,
+      "podiums": 1,
+      "poles": 1,
+      "titles": 0,
+      "best_champ": 7,
+      "teams": [
+       "williams",
+       "force_india",
+       "sauber",
+       "renault",
+       "racing_point",
+       "aston_martin",
+       "haas",
+       "audi"
+      ]
      }
     }
    },
@@ -7471,6 +7939,39 @@
       "points_last5": 0.0,
       "h2h": 0.5
      }
+    },
+    "career": {
+     "ovr": 64,
+     "tier": "bronze",
+     "stats": {
+      "QUA": 54,
+      "PAC": 45,
+      "RAC": 44,
+      "CON": 71,
+      "SUC": 43,
+      "H2H": 65
+     },
+     "raw": {
+      "avg_quali_share": 0.631,
+      "avg_finish_share": 0.59,
+      "places_gained": 0.4,
+      "finish_rate": 0.83,
+      "h2h": 0.49
+     },
+     "facts": {
+      "first": 2025,
+      "seasons": 2,
+      "starts": 41,
+      "wins": 0,
+      "podiums": 0,
+      "poles": 0,
+      "titles": 0,
+      "best_champ": 19,
+      "teams": [
+       "sauber",
+       "audi"
+      ]
+     }
     }
    },
    {
@@ -7644,6 +8145,42 @@
       "finish_rate": 0.94,
       "points_last5": 0.8,
       "h2h": 0.33
+     }
+    },
+    "career": {
+     "ovr": 66,
+     "tier": "bronze",
+     "stats": {
+      "QUA": 53,
+      "PAC": 50,
+      "RAC": 66,
+      "CON": 73,
+      "SUC": 41,
+      "H2H": 63
+     },
+     "raw": {
+      "avg_quali_share": 0.587,
+      "avg_finish_share": 0.492,
+      "places_gained": 2.0,
+      "finish_rate": 0.86,
+      "h2h": 0.47
+     },
+     "facts": {
+      "first": 2016,
+      "seasons": 10,
+      "starts": 197,
+      "wins": 1,
+      "podiums": 4,
+      "poles": 0,
+      "titles": 0,
+      "best_champ": 8,
+      "teams": [
+       "manor",
+       "force_india",
+       "renault",
+       "alpine",
+       "haas"
+      ]
      }
     }
    },
@@ -7819,6 +8356,43 @@
       "points_last5": 0.8,
       "h2h": 0.82
      }
+    },
+    "career": {
+     "ovr": 78,
+     "tier": "silver",
+     "stats": {
+      "QUA": 74,
+      "PAC": 76,
+      "RAC": 87,
+      "CON": 51,
+      "SUC": 59,
+      "H2H": 84
+     },
+     "raw": {
+      "avg_quali_share": 0.389,
+      "avg_finish_share": 0.288,
+      "places_gained": 1.7,
+      "finish_rate": 0.8,
+      "h2h": 0.69
+     },
+     "facts": {
+      "first": 2001,
+      "seasons": 23,
+      "starts": 445,
+      "wins": 32,
+      "podiums": 106,
+      "poles": 23,
+      "titles": 2,
+      "best_champ": 1,
+      "teams": [
+       "minardi",
+       "renault",
+       "mclaren",
+       "ferrari",
+       "alpine",
+       "aston_martin"
+      ]
+     }
     }
    },
    {
@@ -7992,6 +8566,42 @@
       "finish_rate": 0.82,
       "points_last5": 0.2,
       "h2h": 0.73
+     }
+    },
+    "career": {
+     "ovr": 71,
+     "tier": "silver",
+     "stats": {
+      "QUA": 70,
+      "PAC": 68,
+      "RAC": 65,
+      "CON": 65,
+      "SUC": 45,
+      "H2H": 62
+     },
+     "raw": {
+      "avg_quali_share": 0.421,
+      "avg_finish_share": 0.353,
+      "places_gained": 1.2,
+      "finish_rate": 0.81,
+      "h2h": 0.46
+     },
+     "facts": {
+      "first": 2015,
+      "seasons": 12,
+      "starts": 249,
+      "wins": 4,
+      "podiums": 29,
+      "poles": 5,
+      "titles": 0,
+      "best_champ": 5,
+      "teams": [
+       "toro_rosso",
+       "renault",
+       "mclaren",
+       "ferrari",
+       "williams"
+      ]
      }
     }
    },
@@ -8167,6 +8777,40 @@
       "points_last5": 0.0,
       "h2h": 0.27
      }
+    },
+    "career": {
+     "ovr": 63,
+     "tier": "bronze",
+     "stats": {
+      "QUA": 52,
+      "PAC": 49,
+      "RAC": 62,
+      "CON": 61,
+      "SUC": 41,
+      "H2H": 54
+     },
+     "raw": {
+      "avg_quali_share": 0.602,
+      "avg_finish_share": 0.508,
+      "places_gained": 1.7,
+      "finish_rate": 0.79,
+      "h2h": 0.36
+     },
+     "facts": {
+      "first": 2019,
+      "seasons": 7,
+      "starts": 146,
+      "wins": 0,
+      "podiums": 2,
+      "poles": 0,
+      "titles": 0,
+      "best_champ": 7,
+      "teams": [
+       "toro_rosso",
+       "red_bull",
+       "williams"
+      ]
+     }
     }
    },
    {
@@ -8228,6 +8872,40 @@
       "finish_rate": 1.0,
       "points_last5": 0.5,
       "h2h": 0.17
+     }
+    },
+    "career": {
+     "ovr": 61,
+     "tier": "bronze",
+     "stats": {
+      "QUA": 51,
+      "PAC": 40,
+      "RAC": 40,
+      "CON": 79,
+      "SUC": 41,
+      "H2H": 45
+     },
+     "raw": {
+      "avg_quali_share": 0.617,
+      "avg_finish_share": 0.588,
+      "places_gained": 0.6,
+      "finish_rate": 0.85,
+      "h2h": 0.26
+     },
+     "facts": {
+      "first": 2021,
+      "seasons": 6,
+      "starts": 117,
+      "wins": 0,
+      "podiums": 0,
+      "poles": 0,
+      "titles": 0,
+      "best_champ": 12,
+      "teams": [
+       "alphatauri",
+       "rb",
+       "red_bull"
+      ]
      }
     }
    },
@@ -8403,6 +9081,40 @@
       "points_last5": 0.0,
       "h2h": 0.18
      }
+    },
+    "career": {
+     "ovr": 60,
+     "tier": "bronze",
+     "stats": {
+      "QUA": 40,
+      "PAC": 43,
+      "RAC": 68,
+      "CON": 62,
+      "SUC": 41,
+      "H2H": 40
+     },
+     "raw": {
+      "avg_quali_share": 0.714,
+      "avg_finish_share": 0.55,
+      "places_gained": 2.6,
+      "finish_rate": 0.79,
+      "h2h": 0.22
+     },
+     "facts": {
+      "first": 2017,
+      "seasons": 10,
+      "starts": 208,
+      "wins": 0,
+      "podiums": 3,
+      "poles": 1,
+      "titles": 0,
+      "best_champ": 10,
+      "teams": [
+       "williams",
+       "racing_point",
+       "aston_martin"
+      ]
+     }
     }
    },
    {
@@ -8577,6 +9289,42 @@
       "points_last5": 0.0,
       "h2h": 0.35
      }
+    },
+    "career": {
+     "ovr": 68,
+     "tier": "bronze",
+     "stats": {
+      "QUA": 74,
+      "PAC": 66,
+      "RAC": 52,
+      "CON": 40,
+      "SUC": 51,
+      "H2H": 46
+     },
+     "raw": {
+      "avg_quali_share": 0.386,
+      "avg_finish_share": 0.363,
+      "places_gained": 0.3,
+      "finish_rate": 0.86,
+      "h2h": 0.29
+     },
+     "facts": {
+      "first": 2013,
+      "seasons": 13,
+      "starts": 264,
+      "wins": 10,
+      "podiums": 67,
+      "poles": 19,
+      "titles": 0,
+      "best_champ": 2,
+      "teams": [
+       "williams",
+       "mercedes",
+       "alfa",
+       "sauber",
+       "cadillac"
+      ]
+     }
     }
    },
    {
@@ -8750,6 +9498,43 @@
       "finish_rate": 0.71,
       "points_last5": 0.0,
       "h2h": 0.65
+     }
+    },
+    "career": {
+     "ovr": 71,
+     "tier": "silver",
+     "stats": {
+      "QUA": 65,
+      "PAC": 68,
+      "RAC": 85,
+      "CON": 67,
+      "SUC": 46,
+      "H2H": 56
+     },
+     "raw": {
+      "avg_quali_share": 0.472,
+      "avg_finish_share": 0.353,
+      "places_gained": 2.4,
+      "finish_rate": 0.85,
+      "h2h": 0.4
+     },
+     "facts": {
+      "first": 2011,
+      "seasons": 15,
+      "starts": 300,
+      "wins": 6,
+      "podiums": 39,
+      "poles": 3,
+      "titles": 0,
+      "best_champ": 2,
+      "teams": [
+       "sauber",
+       "mclaren",
+       "force_india",
+       "racing_point",
+       "red_bull",
+       "cadillac"
+      ]
      }
     }
    }
