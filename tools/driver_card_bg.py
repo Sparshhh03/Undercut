@@ -36,7 +36,7 @@ def figure_alpha(im, head=None):
     if busy:
         # seed the driver from what the backdrop isn't: saturated (suit, skin) or dark (hair, shoes)
         pale = (bright > 175) & (colour < 30)
-        seed = cv2.morphologyEx(((colour > 55) | (bright < 95)).astype(np.uint8), cv2.MORPH_OPEN, np.ones((5, 5), np.uint8))
+        seed = cv2.morphologyEx((((colour > 55) & (bright < 185)) | (bright < 95)).astype(np.uint8), cv2.MORPH_OPEN, np.ones((5, 5), np.uint8))
         n, lab, st, cen = cv2.connectedComponentsWithStats(seed)
         core = np.isin(lab, [i for i in range(1, n) if st[i, cv2.CC_STAT_AREA] > h * w * 0.002
                              and 0.15 * w < cen[i][0] < 0.85 * w]).astype(np.uint8)
@@ -55,7 +55,7 @@ def figure_alpha(im, head=None):
             cv2.fillPoly(cmask, [collar], 1)
             gc[cmask.astype(bool)] = cv2.GC_FGD
         cv2.grabCut(im, gc, None, np.zeros((1, 65)), np.zeros((1, 65)), 6, cv2.GC_INIT_WITH_MASK)
-        cand = pale.astype(np.uint8)
+        cand = (pale | ((bright > 165) & (colour < 80))).astype(np.uint8)   # pale tints count for enclosed gaps
         bgc = np.median(f[pale & near], 0)
     elif light:
         bgc = np.median(edge, 0)
