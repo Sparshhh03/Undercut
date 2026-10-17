@@ -1,7 +1,7 @@
 """Build a driver card's background photo: the driver cut out of their photo and placed on a team
 backdrop, framed exactly like the Verstappen card (same head size and position), 720 x 1006 px.
 
-    python tools/driver_card_bg.py FIGURE BACKDROP OUT HEAD_TOP CHIN FACE_X [BACKDROP_BOX] [CHOKE]
+    python tools/driver_card_bg.py FIGURE BACKDROP OUT HEAD_TOP CHIN FACE_X [BACKDROP_BOX] [CHOKE] [SHADOW] [MATCH_REF]
 
 FIGURE        photo of the driver: flat light backdrop, pale textured backdrop, or any backdrop if the
               driver fills the middle
@@ -122,7 +122,27 @@ def refine_edges(f, fill, alpha, bgc, band):
     return out
 
 
-def build(figure, backdrop, out, head_top, chin, face_x, box=FERRARI_BOX, choke=0):
+def match_colour(fgc, mask, ref_path, amount=0.85):
+    """Shift the driver's colours (Lab mean and spread) towards the driver in a reference card photo.
+    The reference driver is everything in the middle of that photo that isn't bright backdrop colour."""
+    ref = cv2.imread(ref_path).astype(np.float32)
+    rh, rw = ref.shape[:2]
+    sat = ref.max(2) - ref.min(2)
+    rmask = np.zeros((rh, rw), bool)
+    rmask[int(rh * .05):int(rh * .75), int(rw * .25):int(rw * .75)] = True
+    rmask &= ~((ref[..., 2] > 140) & (sat > 90))          # not the yellow / red backdrop
+    to_lab = lambda x: cv2.cvtColor(np.clip(x, 0, 255).astype(np.uint8), cv2.COLOR_BGR2LAB).astype(np.float32)
+    src, dst = to_lab(fgc), to_lab(ref)
+    out = src.copy()
+    for c in range(3):
+        sm, ss = src[..., c][mask].mean(), src[..., c][mask].std() + 1e-3
+        dm, ds = dst[..., c][rmask].mean(), dst[..., c][rmask].std() + 1e-3
+        out[..., c] = (src[..., c] - sm) * (ds / ss) + dm
+    out = src + amount * (out - src)
+    return cv2.cvtColor(np.clip(out, 0, 255).astype(np.uint8), cv2.COLOR_LAB2BGR).astype(np.float32)
+
+
+def build(figure, backdrop, out, head_top, chin, face_x, box=FERRARI_BOX, choke=0, shadow=0.45, match=None):
     im = cv2.imread(figure)
     alpha, bgc = figure_alpha(im, (head_top, chin, face_x))
     if choke:   # soft photos: pull the edge in by `choke` px so the blur into the old backdrop doesn't show
@@ -133,6 +153,8 @@ def build(figure, backdrop, out, head_top, chin, face_x, box=FERRARI_BOX, choke=
         a = np.clip(alpha, 0.05, 1)[..., None]
         fgc = np.clip((fgc - (1 - a) * bgc) / a, 0, 255)
 
+    if match is not None:   # grade the driver like a reference driver photo (same light and colour)
+        fgc = match_colour(fgc, alpha > 0.9, match)
     s = HEAD / (chin - head_top)
     M = np.float32([[s, 0, W / 2 + FACE_DX - s * face_x], [0, s, HEAD_Y - s * head_top]])
     interp = cv2.INTER_LANCZOS4 if s > 1 else cv2.INTER_AREA
@@ -144,7 +166,7 @@ def build(figure, backdrop, out, head_top, chin, face_x, box=FERRARI_BOX, choke=
     bd = cv2.resize(bd[y0:y1, x0:x1], (W, H), interpolation=cv2.INTER_AREA).astype(np.float32)
     # a soft contact shadow behind the driver so they sit in the scene rather than float on it
     sh = cv2.GaussianBlur(a[..., 0], (0, 0), 14)[..., None]
-    bd = bd * (1 - 0.45 * sh)
+    bd = bd * (1 - shadow * sh)   # 0 on bright backdrops, where it reads as a dark outline
     comp = np.clip(fig * a + bd * (1 - a), 0, 255).astype(np.uint8)
     cv2.imwrite(out.rsplit(".", 1)[0] + "_full.png", comp)
     ok = cv2.imwrite(out, comp, [cv2.IMWRITE_WEBP_QUALITY, 86])
@@ -153,7 +175,8 @@ def build(figure, backdrop, out, head_top, chin, face_x, box=FERRARI_BOX, choke=
 
 if __name__ == "__main__":
     a = sys.argv[1:]
-    if len(a) not in (6, 7, 8):
+    if len(a) not in (6, 7, 8, 9, 10):
         sys.exit(__doc__)
     box = tuple(int(v) for v in a[6].split(",")) if len(a) >= 7 else FERRARI_BOX
-    build(a[0], a[1], a[2], float(a[3]), float(a[4]), float(a[5]), box, int(a[7]) if len(a) == 8 else 0)
+    build(a[0], a[1], a[2], float(a[3]), float(a[4]), float(a[5]), box, int(a[7]) if len(a) >= 8 else 0,
+          float(a[8]) if len(a) >= 9 else 0.45, a[9] if len(a) == 10 else None)
