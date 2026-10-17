@@ -35,7 +35,7 @@ const HELMET_PHOTOS = {
 const CARD_BG = {
   max_verstappen: 'media/drivers/verstappen.webp', leclerc: 'media/drivers/leclerc.webp', hamilton: 'media/drivers/hamilton.webp',
   russell: 'media/drivers/russell.webp', antonelli: 'media/drivers/antonelli.webp',
-  norris: 'media/drivers/norris.webp', piastri: 'media/drivers/piastri.webp',
+  norris: 'media/drivers/norris.webp', piastri: 'media/drivers/piastri.webp', hadjar: 'media/drivers/hadjar.webp',
 };
 
 const hash = s => [...s].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 7);

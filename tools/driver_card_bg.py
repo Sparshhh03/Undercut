@@ -1,7 +1,7 @@
 """Build a driver card's background photo: the driver cut out of their photo and placed on a team
 backdrop, framed exactly like the Verstappen card (same head size and position), 720 x 1006 px.
 
-    python tools/driver_card_bg.py FIGURE BACKDROP OUT HEAD_TOP CHIN FACE_X [BACKDROP_BOX]
+    python tools/driver_card_bg.py FIGURE BACKDROP OUT HEAD_TOP CHIN FACE_X [BACKDROP_BOX] [CHOKE]
 
 FIGURE        photo of the driver: flat light backdrop, pale textured backdrop, or any backdrop if the
               driver fills the middle
@@ -122,9 +122,12 @@ def refine_edges(f, fill, alpha, bgc, band):
     return out
 
 
-def build(figure, backdrop, out, head_top, chin, face_x, box=FERRARI_BOX):
+def build(figure, backdrop, out, head_top, chin, face_x, box=FERRARI_BOX, choke=0):
     im = cv2.imread(figure)
     alpha, bgc = figure_alpha(im, (head_top, chin, face_x))
+    if choke:   # soft photos: pull the edge in by `choke` px so the blur into the old backdrop doesn't show
+        alpha = cv2.erode(alpha, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (2 * choke + 1, 2 * choke + 1)))
+        alpha = cv2.GaussianBlur(alpha, (0, 0), 0.8)
     fgc = im.astype(np.float32)
     if bgc is not None:   # take the light backdrop's colour out of the semi-transparent edge pixels
         a = np.clip(alpha, 0.05, 1)[..., None]
@@ -150,7 +153,7 @@ def build(figure, backdrop, out, head_top, chin, face_x, box=FERRARI_BOX):
 
 if __name__ == "__main__":
     a = sys.argv[1:]
-    if len(a) not in (6, 7):
+    if len(a) not in (6, 7, 8):
         sys.exit(__doc__)
-    box = tuple(int(v) for v in a[6].split(",")) if len(a) == 7 else FERRARI_BOX
-    build(a[0], a[1], a[2], float(a[3]), float(a[4]), float(a[5]), box)
+    box = tuple(int(v) for v in a[6].split(",")) if len(a) >= 7 else FERRARI_BOX
+    build(a[0], a[1], a[2], float(a[3]), float(a[4]), float(a[5]), box, int(a[7]) if len(a) == 8 else 0)
